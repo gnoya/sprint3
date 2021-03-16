@@ -20,7 +20,7 @@ void eeprom_read(int *state)
   // i2c_readNBytes(0x50, receiveData, sizeof(receiveData));
 }
 
-void eeprom_write(int *state)
+void eeprom_write(int state)
 {
   // uint8_t sendData[4] = {0x00, 0x00, 0x00, 0x00};
 

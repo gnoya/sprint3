@@ -25,3 +25,108 @@
  * Comments:
  * Revision history: 
  */
+
+/**
+  @Summary
+    This struct is used to control the LEDs of the system
+
+  @Description
+    This struct is used to control the LEDs of the system
+*/
+typedef struct led_adapter
+{
+  void (*turn_off)(void);
+  void (*turn_on)(void);
+  void (*low)(void);
+  void (*high)(void);
+} led_adapter;
+
+/**
+  @Summary
+    This functions turns on the led on low bright
+
+  @Description
+    This functions turns on the led on low bright by changing the duty cycle of the PWM
+
+  @Preconditions
+    None
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
+static void low(void);
+
+/**
+  @Summary
+    This functions turns on the led on high bright 
+
+  @Description
+    This functions turns on the led on high bright by changing the duty cycle of the PWM
+
+  @Preconditions
+    None
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
+static void high(void);
+
+/**
+  @Summary
+    This functions turns off the led
+
+  @Description
+    This functions turns off the led by changing the duty cycle of the PWM
+
+  @Preconditions
+    None
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
+static void turn_off(void);
+
+/**
+  @Summary
+    This functions turns on the led to the maximum brightness
+
+  @Description
+    This functions turns on the led by changing the duty cycle of the PWM
+
+  @Preconditions
+    None
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
+static void turn_on(void);
+
+/**
+  @Summary
+    Initializes the led adapter
+
+  @Description
+    This function assigns the static functions to the led adapter
+
+  @Preconditions
+    None
+
+  @Param
+    led_adapter *led
+
+  @Returns
+    None
+*/
+void LED_Initialize(led_adapter *led);

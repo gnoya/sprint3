@@ -42,34 +42,59 @@
 */
 
 #include "mcc_generated_files/mcc.h"
+#include "led.h"
+
+#define LOW_LIGHT_STATE 0
+#define HIGH_LIGHT_STATE 1
+#define MUSIC_STATE 2
+#define DMX_STATE 3
+
+int state = 0;
+led_adapter led;
 
 /*
                          Main application
  */
 void main(void)
 {
-    // initialize the device
-    SYSTEM_Initialize();
+  // initialize the device
+  SYSTEM_Initialize();
+  LED_Initialize(&led);
 
-    // When using interrupts, you need to set the Global and Peripheral Interrupt Enable bits
-    // Use the following macros to:
+  // When using interrupts, you need to set the Global and Peripheral Interrupt Enable bits
+  // Use the following macros to:
 
-    // Enable the Global Interrupts
-    //INTERRUPT_GlobalInterruptEnable();
+  // Enable the Global Interrupts
+  //INTERRUPT_GlobalInterruptEnable();
 
-    // Enable the Peripheral Interrupts
-    //INTERRUPT_PeripheralInterruptEnable();
+  // Enable the Peripheral Interrupts
+  //INTERRUPT_PeripheralInterruptEnable();
 
-    // Disable the Global Interrupts
-    //INTERRUPT_GlobalInterruptDisable();
+  // Disable the Global Interrupts
+  //INTERRUPT_GlobalInterruptDisable();
 
-    // Disable the Peripheral Interrupts
-    //INTERRUPT_PeripheralInterruptDisable();
+  // Disable the Peripheral Interrupts
+  //INTERRUPT_PeripheralInterruptDisable();
 
-    while (1)
+  while (1)
+  {
+    switch (state)
     {
-        // Add your application code
+    case LOW_LIGHT_STATE:
+      led.low();
+      break;
+    case HIGH_LIGHT_STATE:
+      led.high();
+      break;
+    case MUSIC_STATE:
+      break;
+    case DMX_STATE:
+      break;
+    default:
+      break;
     }
+    // Add your application code
+  }
 }
 /**
  End of File

@@ -1,0 +1,10 @@
+__pycache__/
+
+# Ignoring files according to http://microchip.wikidot.com/faq:72
+mplabx/sprint3.X/build/
+mplabx/sprint3.X/dist/
+
+# Ingoring private Makefiles
+mplabx/sprint3.X/nbproject/Makefile-*
+mplabx/sprint3.X/nbproject/Package-*
+mplabx/sprint3.X/nbproject/private/

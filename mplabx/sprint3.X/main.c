@@ -88,47 +88,27 @@ void main(void)
     switch (state)
     {
     case LOW_LIGHT_STATE:
-      led.low();
-      if(feedback)
-        {
-            IO_RC4_SetLow();
-            IO_RC5_SetLow();
-            IO_RC6_SetHigh();
-            feedback = false;
-        }
-      break;
+        led.low();
+        if(feedback)
+            give_feedback();
+        break;
     case HIGH_LIGHT_STATE:
-      led.high();
-      if(feedback)
-      {
-          IO_RC4_SetLow();
-          IO_RC5_SetHigh();
-          IO_RC6_SetLow();
-          feedback = false;
-      }
-      break;
+        led.high();
+        if(feedback)
+          give_feedback();
+        break;
     case MUSIC_STATE:
         printf("MUSIC State \n\r");
         if(feedback)
-        {
-            IO_RC4_SetHigh();
-            IO_RC5_SetLow();
-            IO_RC6_SetLow();
-            feedback = false;
-        }
-      break;
+            give_feedback();
+        break;
     case DMX_STATE:
-      printf("DMX State \n\r");
-      if(feedback)
-        {
-            IO_RC4_SetHigh();
-            IO_RC5_SetHigh();
-            IO_RC6_SetHigh();
-            feedback = false;
-        }
-      break;
+        printf("DMX State \n\r");
+        if(feedback)
+            give_feedback();
+        break;
     default:
-      break;
+        break;
     }
     // Add your application code
   }

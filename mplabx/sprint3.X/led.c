@@ -5,32 +5,59 @@
  * Created on March 15, 2021, 5:45 PM
  */
 
+#include "mcc_generated_files/mcc.h"
 #include <stdio.h>
 #include <stdbool.h>
 #include "led.h"
 
+static void set_red(int pwm);
+static void set_green(int pwm);
+static void set_blue(int pwm);
+
+static void set_red(int pwm)
+{
+  // 0 to 255
+  PWM3_LoadDutyValue(pwm);
+}
+
+static void set_green(int pwm)
+{
+  // 0 to 255
+  PWM2_LoadDutyValue(pwm);
+}
+
+static void set_blue(int pwm)
+{
+  // 0 to 255
+  PWM1_LoadDutyValue(pwm);
+}
+
 static void low(void)
 {
-  // PWM3_LoadDutyValue(50);
-  printf("Low\r\n");
+  set_red(80);
+  set_green(0);
+  set_blue(0);
 }
 
 static void high(void)
 {
-  // PWM3_LoadDutyValue(0);
-  printf("High\r\n");
+  set_red(255);
+  set_green(0);
+  set_blue(0);
 }
 
 static void turn_off(void)
 {
-  // PWM3_LoadDutyValue(255);
-  printf("Off\r\n");
+  set_red(0);
+  set_green(0);
+  set_blue(0);
 }
 
 static void turn_on(void)
 {
-  // PWM3_LoadDutyValue(0);
-  printf("On\r\n");
+  set_red(0);
+  set_green(255);
+  set_blue(0);
 }
 
 // ----------------------- Public functions ----------------------- //

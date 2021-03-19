@@ -14,7 +14,7 @@
     This header file provides implementations for driver APIs for all modules selected in the GUI.
     Generation Information :
         Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.81.7
-        Device            :  PIC16F1769
+        Device            :  PIC16F1508
         Driver Version    :  2.00
     The generated drivers are tested against the following:
         Compiler          :  XC8 2.31 and above or later
@@ -53,17 +53,17 @@ void SYSTEM_Initialize(void)
     PIN_MANAGER_Initialize();
     OSCILLATOR_Initialize();
     WDT_Initialize();
+    PWM1_Initialize();
+    PWM2_Initialize();
+    PWM3_Initialize();
+    TMR2_Initialize();
     EUSART_Initialize();
 }
 
 void OSCILLATOR_Initialize(void)
 {
-    // SCS FOSC; SPLLEN disabled; IRCF 1MHz_HF; 
+    // SCS FOSC; IRCF 1MHz_HF; 
     OSCCON = 0x58;
-    // SOSCR disabled; 
-    OSCSTAT = 0x00;
-    // TUN 0; 
-    OSCTUNE = 0x00;
     // SBOREN disabled; BORFS disabled; 
     BORCON = 0x00;
 }

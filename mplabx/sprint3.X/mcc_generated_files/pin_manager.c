@@ -14,7 +14,7 @@
     This header file provides implementations for pin APIs for all pins selected in the GUI.
     Generation Information :
         Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.81.7
-        Device            :  PIC16F1769
+        Device            :  PIC16F1508
         Driver Version    :  2.11
     The generated drivers are tested against the following:
         Compiler          :  XC8 2.31 and above
@@ -64,57 +64,35 @@ void PIN_MANAGER_Initialize(void)
     /**
     TRISx registers
     */
-    TRISA = 0x37;
+    TRISA = 0x3B;
     TRISB = 0x70;
-    TRISC = 0xFF;
+    TRISC = 0xD7;
 
     /**
     ANSELx registers
     */
-    ANSELC = 0xCF;
+    ANSELC = 0xC0;
     ANSELB = 0x50;
-    ANSELA = 0x17;
+    ANSELA = 0x13;
 
     /**
     WPUx registers
     */
     WPUB = 0x00;
     WPUA = 0x00;
-    WPUC = 0x00;
     OPTION_REGbits.nWPUEN = 1;
 
-    /**
-    ODx registers
-    */
-    ODCONA = 0x00;
-    ODCONB = 0x00;
-    ODCONC = 0x00;
 
     /**
-    SLRCONx registers
+    APFCONx registers
     */
-    SLRCONA = 0x37;
-    SLRCONB = 0xF0;
-    SLRCONC = 0xFF;
-
-    /**
-    INLVLx registers
-    */
-    INLVLA = 0x3F;
-    INLVLB = 0xF0;
-    INLVLC = 0xFF;
-
+    APFCON = 0x00;
 
 
 
 
    
     
-	
-		
-    RXPPS = 0x0D;   //RB5->EUSART:RX;    
-		
-    RB7PPS = 0x16;   //RB7->EUSART:TX;    
 }
   
 void PIN_MANAGER_IOC(void)

@@ -14,7 +14,7 @@
     This source file provides APIs for EUSART.
     Generation Information :
         Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.81.7
-        Device            :  PIC16F1769
+        Device            :  PIC16F1508
         Driver Version    :  2.1.1
     The generated drivers are tested against the following:
         Compiler          :  XC8 2.31 and above
@@ -67,19 +67,19 @@ void EUSART_Initialize(void)
 {
     // Set the EUSART module to the options selected in the user interface.
 
-    // ABDOVF no_overflow; SCKP Non-Inverted; BRG16 16bit_generator; WUE disabled; ABDEN disabled; 
-    BAUD1CON = 0x08;
+    // SCKP Non-Inverted; BRG16 16bit_generator; WUE disabled; ABDEN disabled; 
+    BAUDCON = 0x08;
 
     // SPEN enabled; RX9 8-bit; CREN enabled; ADDEN disabled; SREN disabled; 
-    RC1STA = 0x90;
+    RCSTA = 0x90;
 
     // TX9 8-bit; TX9D 0; SENDB sync_break_complete; TXEN enabled; SYNC asynchronous; BRGH hi_speed; CSRC slave; 
-    TX1STA = 0x24;
+    TXSTA = 0x24;
 
-    // SP1BRGL 25; 
+    // SPBRGL 25; 
     SPBRGL = 0x19;
 
-    // SP1BRGH 0; 
+    // SPBRGH 0; 
     SPBRGH = 0x00;
 
 
@@ -93,7 +93,7 @@ void EUSART_Initialize(void)
 
 bool EUSART_is_tx_ready(void)
 {
-    return (bool)(PIR1bits.TXIF && TX1STAbits.TXEN);
+    return (bool)(PIR1bits.TXIF && TXSTAbits.TXEN);
 }
 
 bool EUSART_is_rx_ready(void)
@@ -103,7 +103,7 @@ bool EUSART_is_rx_ready(void)
 
 bool EUSART_is_tx_done(void)
 {
-    return TX1STAbits.TRMT;
+    return TXSTAbits.TRMT;
 }
 
 eusart_status_t EUSART_get_last_status(void){
@@ -118,15 +118,15 @@ uint8_t EUSART_Read(void)
 
     eusartRxLastError.status = 0;
     
-    if(1 == RC1STAbits.OERR)
+    if(1 == RCSTAbits.OERR)
     {
         // EUSART error - restart
 
-        RC1STAbits.CREN = 0; 
-        RC1STAbits.CREN = 1; 
+        RCSTAbits.CREN = 0; 
+        RCSTAbits.CREN = 1; 
     }
 
-    return RC1REG;
+    return RCREG;
 }
 
 void EUSART_Write(uint8_t txData)
@@ -135,7 +135,7 @@ void EUSART_Write(uint8_t txData)
     {
     }
 
-    TX1REG = txData;    // Write the data byte to the USART.
+    TXREG = txData;    // Write the data byte to the USART.
 }
 
 char getch(void)
@@ -155,8 +155,8 @@ void EUSART_DefaultFramingErrorHandler(void){}
 void EUSART_DefaultOverrunErrorHandler(void){
     // EUSART error - restart
 
-    RC1STAbits.CREN = 0;
-    RC1STAbits.CREN = 1;
+    RCSTAbits.CREN = 0;
+    RCSTAbits.CREN = 1;
 
 }
 

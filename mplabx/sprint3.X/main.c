@@ -14,7 +14,7 @@
     This header file provides implementations for driver APIs for all modules selected in the GUI.
     Generation Information :
         Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.81.7
-        Device            :  PIC16F1769
+        Device            :  PIC16F1508
         Driver Version    :  2.00
 */
 
@@ -49,8 +49,12 @@
 #define MUSIC_STATE 2
 #define DMX_STATE 3
 
-int state = 0;
+int state = HIGH_LIGHT_STATE;
 led_adapter led;
+
+void state_machine()
+{
+}
 
 /*
                          Main application
@@ -70,6 +74,8 @@ void main(void)
   // Enable the Peripheral Interrupts
   //INTERRUPT_PeripheralInterruptEnable();
 
+  // TMR6_SetInterruptHandler(state_machine);
+
   // Disable the Global Interrupts
   //INTERRUPT_GlobalInterruptDisable();
 
@@ -78,6 +84,7 @@ void main(void)
 
   while (1)
   {
+    // Add your application code
     switch (state)
     {
     case LOW_LIGHT_STATE:
@@ -93,7 +100,6 @@ void main(void)
     default:
       break;
     }
-    // Add your application code
   }
 }
 /**

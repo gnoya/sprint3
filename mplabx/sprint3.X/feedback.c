@@ -14,7 +14,7 @@
 #define DMX_STATE 3
 
 static bool debouncing = false;
-int state = 0;
+int state = 0;                                  //Extern Variable
 
 void give_feedback(void)
 {

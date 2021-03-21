@@ -25,5 +25,9 @@
  * Comments:
  * Revision history: 
  */
+extern int state;
+extern bool feedback;
 
-void give_feedback(int state);
+void give_feedback(void);
+void debouncing_ISR(void);
+void button_ISR(void);

@@ -52,10 +52,12 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <conio.h>
+#include "interrupt_manager.h"
 #include "i2c_master.h"
+#include "tmr1.h"
 #include "tmr2.h"
-#include "pwm1.h"
 #include "pwm2.h"
+#include "pwm1.h"
 #include "pwm3.h"
 #include "eusart.h"
 #include "drivers/i2c_simple_master.h"

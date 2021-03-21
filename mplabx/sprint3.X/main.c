@@ -44,14 +44,16 @@
 #include "mcc_generated_files/mcc.h"
 #include "led.h"
 #include "eeprom.h"
+#include "feedback.h"
 
 #define LOW_LIGHT_STATE 0
 #define HIGH_LIGHT_STATE 1
 #define MUSIC_STATE 2
 #define DMX_STATE 3
 
-int state = HIGH_LIGHT_STATE;
 led_adapter led;
+int state = HIGH_LIGHT_STATE;
+bool feedback = true;
 
 void state_machine()
 {
@@ -70,10 +72,10 @@ void main(void)
   // Use the following macros to:
 
   // Enable the Global Interrupts
-  //INTERRUPT_GlobalInterruptEnable();
+  INTERRUPT_GlobalInterruptEnable();
 
   // Enable the Peripheral Interrupts
-  //INTERRUPT_PeripheralInterruptEnable();
+  INTERRUPT_PeripheralInterruptEnable();
 
   // TMR6_SetInterruptHandler(state_machine);
 
@@ -82,23 +84,39 @@ void main(void)
 
   // Disable the Peripheral Interrupts
   //INTERRUPT_PeripheralInterruptDisable();
+  
+  //Set the ISR handlers
+  IOCAF5_SetInterruptHandler(button_ISR);
+  TMR1_SetInterruptHandler(debouncing_ISR);
+  
   printf("hola");
   eeprom_read_state(&state);
   eeprom_write_state(state);
   while (1)
   {
     // Add your application code
+    __delay_ms(1000);
     switch (state)
     {
     case LOW_LIGHT_STATE:
       led.low();
+      if(feedback)
+        give_feedback();
       break;
     case HIGH_LIGHT_STATE:
       led.high();
+      if(feedback)
+        give_feedback();
       break;
     case MUSIC_STATE:
+      printf("MUSIC State \n\r");
+      if(feedback)
+        give_feedback();
       break;
     case DMX_STATE:
+      printf("DMX State \n\r");
+      if(feedback)
+        give_feedback();
       break;
     default:
       break;

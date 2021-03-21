@@ -89,9 +89,12 @@ void main(void)
   IOCAF5_SetInterruptHandler(button_ISR);
   TMR1_SetInterruptHandler(debouncing_ISR);
   
-  printf("hola");
+
+  eeprom_write_state(3);
+  __delay_ms(200);
   eeprom_read_state(&state);
-  eeprom_write_state(state);
+  __delay_ms(200);
+  
   while (1)
   {
     // Add your application code

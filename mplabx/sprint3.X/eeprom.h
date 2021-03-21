@@ -26,5 +26,5 @@
  * Revision history: 
  */
 
-void eeprom_read(int *state);
-void eeprom_write(int state);
+void eeprom_read_state(int *state);
+void eeprom_write_state(int state);

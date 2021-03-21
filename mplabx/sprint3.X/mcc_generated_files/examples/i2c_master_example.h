@@ -1,26 +1,24 @@
 /**
-  Generated Pin Manager File
+  I2C Generated Driver API Header File
 
-  Company:
+  @Company
     Microchip Technology Inc.
 
-  File Name:
-    pin_manager.c
+  @File Name
+    i2c_master_example.h
 
-  Summary:
-    This is the Pin Manager file generated using PIC10 / PIC12 / PIC16 / PIC18 MCUs
+  @Summary
+    This is the generated header file for the I2C driver example using PIC10 / PIC12 / PIC16 / PIC18 MCUs
 
-  Description:
-    This header file provides implementations for pin APIs for all pins selected in the GUI.
+  @Description
+    This header file provides APIs for driver for I2C.
     Generation Information :
         Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.81.7
         Device            :  PIC16F1508
-        Driver Version    :  2.11
+        Driver Version    :  1.0.0
     The generated drivers are tested against the following:
-        Compiler          :  XC8 2.31 and above
+        Compiler          :  XC8 2.31 and above or later
         MPLAB             :  MPLAB X 5.45
-
-    Copyright (c) 2013 - 2015 released Microchip Technology Inc.  All rights reserved.
 */
 
 /*
@@ -46,59 +44,19 @@
     SOFTWARE.
 */
 
-#include "pin_manager.h"
+#ifndef I2C_MASTER_EXAMPLE_H
+#define I2C_MASTER_EXAMPLE_H
 
+#include <stdint.h>
+#include <stdio.h>
+#include "../i2c_master.h"
 
+uint8_t  I2C_Read1ByteRegister(i2c_address_t address, uint8_t reg);
+uint16_t I2C_Read2ByteRegister(i2c_address_t address, uint8_t reg);
+void I2C_Write1ByteRegister(i2c_address_t address, uint8_t reg, uint8_t data);
+void I2C_Write2ByteRegister(i2c_address_t address, uint8_t reg, uint16_t data);
+void I2C_WriteNBytes(i2c_address_t address, uint8_t *data, size_t len);
+void I2C_ReadNBytes(i2c_address_t address, uint8_t *data, size_t len);
+void I2C_ReadDataBlock(i2c_address_t address, uint8_t reg, uint8_t *data, size_t len);
 
-
-
-void PIN_MANAGER_Initialize(void)
-{
-    /**
-    LATx registers
-    */
-    LATA = 0x00;
-    LATB = 0x00;
-    LATC = 0x00;
-
-    /**
-    TRISx registers
-    */
-    TRISA = 0x3B;
-    TRISB = 0x70;
-    TRISC = 0xD7;
-
-    /**
-    ANSELx registers
-    */
-    ANSELC = 0xC0;
-    ANSELB = 0x00;
-    ANSELA = 0x13;
-
-    /**
-    WPUx registers
-    */
-    WPUB = 0x00;
-    WPUA = 0x00;
-    OPTION_REGbits.nWPUEN = 1;
-
-
-    /**
-    APFCONx registers
-    */
-    APFCON = 0x00;
-
-
-
-
-   
-    
-}
-  
-void PIN_MANAGER_IOC(void)
-{   
-}
-
-/**
- End of File
-*/
+#endif /* I2C_MASTER_EXAMPLE_H */

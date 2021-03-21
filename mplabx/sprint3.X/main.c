@@ -43,6 +43,7 @@
 
 #include "mcc_generated_files/mcc.h"
 #include "led.h"
+#include "eeprom.h"
 
 #define LOW_LIGHT_STATE 0
 #define HIGH_LIGHT_STATE 1
@@ -81,7 +82,9 @@ void main(void)
 
   // Disable the Peripheral Interrupts
   //INTERRUPT_PeripheralInterruptDisable();
-
+  printf("hola");
+  eeprom_read_state(&state);
+  eeprom_write_state(state);
   while (1)
   {
     // Add your application code

@@ -26,5 +26,12 @@
  * Revision history: 
  */
 
-void eeprom_read_state(int *state);
-void eeprom_write_state(int state);
+typedef struct eeprom_adapter
+{
+  void (*read_state)(int *state);
+  void (*write_state)(int state);
+} eeprom_adapter;
+
+static void read_state(int *state);
+static void write_state(int state);
+void EEPROM_Initialize(eeprom_adapter *eeprom);

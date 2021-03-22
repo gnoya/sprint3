@@ -59,7 +59,7 @@ static i2c_operations_t wr1RegCompleteHandler(void *ptr);
 static i2c_operations_t wr2RegCompleteHandler(void *ptr);
 static i2c_operations_t rdBlkRegCompleteHandler(void *ptr);
 
-
+/*
 uint8_t I2C_Read1ByteRegister(i2c_address_t address, uint8_t reg)
 {
     uint8_t returnValue = 0x00;
@@ -173,3 +173,4 @@ static i2c_operations_t rdBlkRegCompleteHandler(void *ptr)
     I2C_SetDataCompleteCallback(NULL,NULL);
     return I2C_RESTART_READ;
 }
+*/

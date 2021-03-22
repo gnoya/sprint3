@@ -139,7 +139,7 @@ i2c_error_t I2C_MasterRead(void); // to be depreciated
  *
  * \return Nothing
  */
-void I2C_SetTimeout(uint8_t timeOut);
+// void I2C_SetTimeout(uint8_t timeOut);
 
 /**
  * \brief Sets up the data buffer to use, and number of bytes to transfer

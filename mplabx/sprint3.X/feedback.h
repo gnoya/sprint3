@@ -25,9 +25,14 @@
  * Comments:
  * Revision history: 
  */
-extern int state;
-extern bool feedback;
 
-void give_feedback(void);
+static void led_1_feedback(void);
+static void led_2_feedback(void);
+static void led_3_feedback(void);
+static void led_4_feedback(void);
+
+void feedback(int state);
 void debouncing_ISR(void);
 void button_ISR(void);
+
+void FEEDBACK_Initialize(void);

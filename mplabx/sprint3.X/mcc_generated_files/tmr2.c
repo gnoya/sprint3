@@ -75,7 +75,7 @@ void TMR2_Initialize(void)
     // T2CKPS 1:64; T2OUTPS 1:1; TMR2ON on; 
     T2CON = 0x07;
 }
-
+/*
 void TMR2_StartTimer(void)
 {
     // Start the Timer by writing to TMRxON bit
@@ -119,6 +119,8 @@ bool TMR2_HasOverflowOccured(void)
     }
     return status;
 }
+*/
+
 /**
   End of File
 */

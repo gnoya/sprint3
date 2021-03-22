@@ -52,74 +52,64 @@
 #define DMX_STATE 3
 
 led_adapter led;
-int state = HIGH_LIGHT_STATE;
-bool feedback = true;
+eeprom_adapter eeprom;
+int state = LOW_LIGHT_STATE;
+extern bool state_changed;
 
-void state_machine()
-{
-}
-
-/*
-                         Main application
- */
 void main(void)
 {
-  // initialize the device
+  // ---------------- Initializing led and menu ---------------- //
   SYSTEM_Initialize();
   LED_Initialize(&led);
+  EEPROM_Initialize(&eeprom);
+  FEEDBACK_Initialize();
 
-  // When using interrupts, you need to set the Global and Peripheral Interrupt Enable bits
-  // Use the following macros to:
-
-  // Enable the Global Interrupts
+  // ------------------ Enabling Interrupts --------------------- //
   INTERRUPT_GlobalInterruptEnable();
-
-  // Enable the Peripheral Interrupts
   INTERRUPT_PeripheralInterruptEnable();
 
-  // TMR6_SetInterruptHandler(state_machine);
-
-  // Disable the Global Interrupts
-  //INTERRUPT_GlobalInterruptDisable();
-
-  // Disable the Peripheral Interrupts
-  //INTERRUPT_PeripheralInterruptDisable();
-  
-  //Set the ISR handlers
+  // ------------ Setting button's Interrupt Handler ------------ //
   IOCAF5_SetInterruptHandler(button_ISR);
-  TMR1_SetInterruptHandler(debouncing_ISR);
-  
 
-  eeprom_write_state(3);
+  //------------- Setting Timer Interrupt Handlers --------------//
+  TMR1_SetInterruptHandler(debouncing_ISR);
+
+  // --------------------- Opening sensors -------------------- //
+
+  // --------------------- Reading EEPROM --------------------- //
+  // printf("state %d \r\n", state);
+  // eeprom.write_state(1);
   __delay_ms(200);
-  eeprom_read_state(&state);
+  eeprom.read_state(&state);
+
   __delay_ms(200);
-  
+  printf("state 2 %d\r\n", state);
+
+  // ----------------------- Feedback ------------------------ //
+  feedback(state);
+
   while (1)
   {
-    // Add your application code
-    __delay_ms(1000);
+    __delay_ms(100);
+    if (state_changed)
+    {
+      feedback(state);
+      eeprom.write_state(state);
+    }
+
     switch (state)
     {
     case LOW_LIGHT_STATE:
       led.low();
-      if(feedback)
-        give_feedback();
       break;
     case HIGH_LIGHT_STATE:
       led.high();
-      if(feedback)
-        give_feedback();
       break;
     case MUSIC_STATE:
       printf("MUSIC State \n\r");
-      if(feedback)
-        give_feedback();
       break;
     case DMX_STATE:
       printf("DMX State \n\r");
-      if(feedback)
-        give_feedback();
       break;
     default:
       break;

@@ -90,7 +90,8 @@ void main(void)
 
   while (1)
   {
-    __delay_ms(100);
+    __delay_ms(100);  // TODO: This is only NOPs! this still consumes current.
+                      // Optimize later, but don't forget to try to make as SLEEP
     if (state_changed)
     {
       feedback(state);

@@ -21,6 +21,7 @@ static void read_state(int *state)
   *state = receiveData[0];
 }
 
+// PT: Well done! this is a good interface! this will change as soon as you need to store more data, but you can add an adaptor later on!
 static void write_state(int state)
 {
   uint8_t sendData[3] = {0x00, 0x00, 0x00};

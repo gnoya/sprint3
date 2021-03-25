@@ -45,6 +45,9 @@ static void high(void)
   set_green(0);
   set_blue(0);
 }
+
+//TODO: Delete the following?
+
 /*
 static void turn_off(void)
 {

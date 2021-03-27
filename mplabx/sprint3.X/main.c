@@ -14,7 +14,7 @@
     This header file provides implementations for driver APIs for all modules selected in the GUI.
     Generation Information :
         Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.81.7
-        Device            :  PIC16F1508
+        Device            :  PIC16F1509
         Driver Version    :  2.00
 */
 
@@ -45,7 +45,6 @@
 #include "led.h"
 #include "eeprom.h"
 #include "feedback.h"
-
 #define LOW_LIGHT_STATE 0
 #define HIGH_LIGHT_STATE 1
 #define MUSIC_STATE 2

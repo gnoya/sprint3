@@ -14,7 +14,7 @@
     This source file provides APIs for TMR2.
     Generation Information :
         Product Revision  :  PIC10 / PIC12 / PIC16 / PIC18 MCUs - 1.81.7
-        Device            :  PIC16F1508
+        Device            :  PIC16F1509
         Driver Version    :  2.01
     The generated drivers are tested against the following:
         Compiler          :  XC8 2.31 and above
@@ -119,8 +119,6 @@ bool TMR2_HasOverflowOccured(void)
     }
     return status;
 }
-*/
-
 /**
   End of File
 */

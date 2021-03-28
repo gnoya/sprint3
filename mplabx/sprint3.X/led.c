@@ -10,62 +10,70 @@
 #include <stdbool.h>
 #include "led.h"
 
-static void set_red(int pwm);
-static void set_green(int pwm);
-static void set_blue(int pwm);
+static void turn_selectors(bool selector1, bool selector2)
+{
+  if (selector1)
+  {
+    LED_SELECTOR_1_SetHigh();
+  }
+  else
+  {
+    LED_SELECTOR_1_SetLow();
+  }
+
+  if (selector2)
+  {
+    LED_SELECTOR_2_SetHigh();
+  }
+  else
+  {
+    LED_SELECTOR_2_SetLow();
+  }
+}
+
+static void set_pwm(int pwm)
+{
+  PWM4_LoadDutyValue((uint16_t)(255 - pwm));
+}
 
 static void set_red(int pwm)
 {
+  turn_selectors(1, 0);
   // 0 to 255
-  PWM3_LoadDutyValue((uint16_t)pwm);
+  set_pwm(pwm);
 }
 
 static void set_green(int pwm)
 {
+  turn_selectors(0, 1);
   // 0 to 255
-  PWM2_LoadDutyValue((uint16_t)pwm);
+  set_pwm(pwm);
 }
 
 static void set_blue(int pwm)
 {
+  turn_selectors(1, 1);
   // 0 to 255
-  PWM1_LoadDutyValue((uint16_t)pwm);
-}
-
-static void low(void)
-{
-  set_red(80);
-  set_green(0);
-  set_blue(0);
+  set_pwm(pwm);
 }
 
 static void high(void)
 {
   set_red(255);
-  set_green(0);
-  set_blue(0);
 }
 
 static void turn_off(void)
 {
-  set_red(0);
-  set_green(0);
-  set_blue(0);
+  turn_selectors(0, 0);
+  set_pwm(0);
 }
-/*
-static void turn_on(void)
-{
-  set_red(0);
-  set_green(255);
-  set_blue(0);
-}
-*/
 
 // ----------------------- Public functions ----------------------- //
 void LED_Initialize(led_adapter *led)
 {
-  led->low = low;
   led->high = high;
   led->turn_off = turn_off;
-  // led->turn_on = turn_on;
+  led->set_red = set_red;
+  led->set_green = set_green;
+  led->set_blue = set_blue;
 }

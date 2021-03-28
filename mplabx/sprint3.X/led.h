@@ -37,27 +37,12 @@ typedef struct led_adapter
 {
   void (*turn_off)(void);
   void (*turn_on)(void);
-  void (*low)(void);
   void (*high)(void);
+  void (*set_red)(int pwm);
+  void (*set_green)(int pwm);
+  void (*set_blue)(int pwm);
+
 } led_adapter;
-
-/**
-  @Summary
-    This functions turns on the led on low bright
-
-  @Description
-    This functions turns on the led on low bright by changing the duty cycle of the PWM
-
-  @Preconditions
-    None
-
-  @Param
-    None
-
-  @Returns
-    None
-*/
-static void low(void);
 
 /**
   @Summary
@@ -130,3 +115,9 @@ static void turn_on(void);
     None
 */
 void LED_Initialize(led_adapter *led);
+
+static void set_red(int pwm);
+static void set_green(int pwm);
+static void set_blue(int pwm);
+static void set_pwm(int pwm);
+static void turn_selectors(bool selector1, bool selector2);

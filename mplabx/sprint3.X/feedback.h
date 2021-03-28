@@ -26,10 +26,11 @@
  * Revision history: 
  */
 
+static void led_0_feedback(void);
 static void led_1_feedback(void);
 static void led_2_feedback(void);
 static void led_3_feedback(void);
-static void led_4_feedback(void);
+static void turn_selectors(bool selector1, bool selector2);
 
 void feedback(int state);
 void debouncing_ISR(void);

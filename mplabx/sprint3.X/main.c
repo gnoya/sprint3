@@ -45,15 +45,14 @@
 #include "led.h"
 #include "eeprom.h"
 #include "feedback.h"
-#define LOW_LIGHT_STATE 0
-#define HIGH_LIGHT_STATE 1
-#define MUSIC_STATE 2
-#define DMX_STATE 3
-#define SLEEP_STATE 4
+#define HIGH_LIGHT_STATE 0
+#define MUSIC_STATE 1
+#define DMX_STATE 2
+#define SLEEP_STATE 3
 
 led_adapter led;
 eeprom_adapter eeprom;
-int state = LOW_LIGHT_STATE;
+int state = HIGH_LIGHT_STATE;
 extern bool state_changed;
 
 void main(void)
@@ -77,50 +76,45 @@ void main(void)
   // --------------------- Opening sensors -------------------- //
 
   // --------------------- Reading EEPROM --------------------- //
-  // printf("state %d \r\n", state);
-  // eeprom.write_state(1);
-  __delay_ms(200);
   eeprom.read_state(&state);
-
   __delay_ms(200);
-  printf("state 2 %d\r\n", state);
+  printf("state %d\r\n", state);
 
   // ----------------------- Feedback ------------------------ //
   feedback(state);
 
   while (1)
   {
-    __delay_ms(100);
+    __delay_ms(1000);
     if (state_changed)
     {
       feedback(state);
-      eeprom.write_state(state);
+      if (state != SLEEP_STATE)
+        eeprom.write_state(state);
     }
 
     switch (state)
     {
-    case LOW_LIGHT_STATE:
-      led.low();
-      break;
     case HIGH_LIGHT_STATE:
-      led.high();
+      led.set_red(255);
       break;
     case MUSIC_STATE:
+      led.set_green(255);
       printf("MUSIC State \n\r");
       break;
     case DMX_STATE:
+      led.set_blue(255);
       printf("DMX State \n\r");
       break;
     case SLEEP_STATE:
       printf("SLEEP State \n\r");
-      feedback(state);
       led.turn_off();
-      TMR0_InterruptDisable();
-      __delay_ms(500); 
-      SLEEP();
-      eeprom.read_state(&state);
-      TMR0_InterruptEnable();
-      printf("END SLEEP State \n\r");
+      // TMR0_InterruptDisable();
+      // __delay_ms(500);
+      // SLEEP();
+      // eeprom.read_state(&state);
+      // TMR0_InterruptEnable();
+      // printf("END SLEEP State \n\r");
       break;
     default:
       break;

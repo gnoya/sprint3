@@ -18,50 +18,53 @@
 extern int state;
 static bool debouncing = false;
 bool state_changed = true;
-static led_adapter leds[5];
+static led_adapter leds[4];
+
+static void turn_selectors(bool selector1, bool selector2)
+{
+  if (selector1)
+  {
+    FB_SELECTOR_1_SetHigh();
+  }
+  else
+  {
+    FB_SELECTOR_1_SetLow();
+  }
+
+  if (selector2)
+  {
+    FB_SELECTOR_2_SetHigh();
+  }
+  else
+  {
+    FB_SELECTOR_2_SetLow();
+  }
+}
+
+static void led_0_feedback(void)
+{
+
+  turn_selectors(1, 0);
+}
 
 static void led_1_feedback(void)
 {
-  IO_RC0_SetHigh();
-  IO_RC1_SetLow();
-  IO_RC2_SetLow();
-  IO_RC4_SetLow();
+  turn_selectors(0, 1);
 }
 
 static void led_2_feedback(void)
 {
-  IO_RC0_SetLow();
-  IO_RC1_SetHigh();
-  IO_RC2_SetLow();
-  IO_RC4_SetLow();
+  turn_selectors(1, 1);
 }
 
 static void led_3_feedback(void)
 {
-  IO_RC0_SetLow();
-  IO_RC1_SetLow();
-  IO_RC2_SetHigh();
-  IO_RC4_SetLow();
-}
-
-static void led_4_feedback(void)
-{
-  IO_RC0_SetLow();
-  IO_RC1_SetLow();
-  IO_RC2_SetLow();
-  IO_RC4_SetHigh();
-}
-
-static void led_5_feedback(void)
-{
-  IO_RC0_SetLow();
-  IO_RC1_SetLow();
-  IO_RC2_SetLow();
-  IO_RC4_SetLow();
+  turn_selectors(0, 0);
 }
 
 void feedback(int state)
 {
+  printf("State: %d \r\n", state);
   state_changed = false;
   leds[state].turn_on();
 }
@@ -85,9 +88,7 @@ void button_ISR(void)
   state_changed = true;
 
   // Updating state
-  //state = (state + 1) % 4;
-  state = (state + 1) % 5;
-  if(state == 4) state_changed = false;
+  state = (state + 1) % 4;
 }
 
 void FEEDBACK_Initialize()
@@ -96,9 +97,8 @@ void FEEDBACK_Initialize()
    * Using the turn_on function to also
    * turn down the others
   */
-  leds[0].turn_on = led_1_feedback;
-  leds[1].turn_on = led_2_feedback;
-  leds[2].turn_on = led_3_feedback;
-  leds[3].turn_on = led_4_feedback;
-  leds[4].turn_on = led_5_feedback;
+  leds[0].turn_on = led_0_feedback;
+  leds[1].turn_on = led_1_feedback;
+  leds[2].turn_on = led_2_feedback;
+  leds[3].turn_on = led_3_feedback;
 }

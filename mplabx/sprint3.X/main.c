@@ -52,7 +52,7 @@
 
 led_adapter led;
 eeprom_adapter eeprom;
-int state = HIGH_LIGHT_STATE;
+extern int state = HIGH_LIGHT_STATE;
 extern bool state_changed;
 
 void main(void)

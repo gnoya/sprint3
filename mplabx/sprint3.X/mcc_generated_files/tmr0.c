@@ -53,9 +53,11 @@
 #include "mcc.h"
 
 
+
 /**
   Section: Global Variables Definitions
 */
+extern int state;
 unsigned int tempLimit = 38592;
 volatile uint8_t timer0ReloadVal;
 void (*TMR0_InterruptHandler)(void);
@@ -134,6 +136,7 @@ void TMR0_CallBack(void)
     unsigned int  temp = (unsigned int)ADC_GetTemp();
     if (temp >= tempLimit){
         printf("Caliente\r\n");
+        state =3;
     }
     if(TMR0_InterruptHandler)
     {

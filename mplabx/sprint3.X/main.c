@@ -73,12 +73,9 @@ void main(void)
   //------------- Setting Timer Interrupt Handlers --------------//
   TMR1_SetInterruptHandler(debouncing_ISR);
 
-  // --------------------- Opening sensors -------------------- //
-
   // --------------------- Reading EEPROM --------------------- //
   eeprom.read_state(&state);
   __delay_ms(200);
-  printf("state %d\r\n", state);
 
   // ----------------------- Feedback ------------------------ //
   feedback(state);

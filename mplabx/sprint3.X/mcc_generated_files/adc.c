@@ -139,7 +139,7 @@ adc_result_t ADC_GetConversion(adc_channel_t channel)
 adc_result_t ADC_GetTemp()
 {
     // select the A/D channel
-    ADCON0bits.CHS = channel_Temp;    
+    ADCON0bits.CHS = 0x1D;    
     
     // Turn on the ADC module
     ADCON0bits.ADON = 1;

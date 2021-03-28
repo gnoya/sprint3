@@ -50,11 +50,13 @@
 
 #include <xc.h>
 #include "tmr0.h"
+#include "mcc.h"
+
 
 /**
   Section: Global Variables Definitions
 */
-
+unsigned int tempLimit = 38592;
 volatile uint8_t timer0ReloadVal;
 void (*TMR0_InterruptHandler)(void);
 /**
@@ -129,7 +131,10 @@ void TMR0_ISR(void)
 void TMR0_CallBack(void)
 {
     // Add your custom callback code here
-    printf("prueba");
+    unsigned int  temp = (unsigned int)ADC_GetTemp();
+    if (temp >= tempLimit){
+        printf("Caliente\r\n");
+    }
     if(TMR0_InterruptHandler)
     {
         TMR0_InterruptHandler();

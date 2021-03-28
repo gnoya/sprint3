@@ -57,6 +57,7 @@
 */
 
 #define ACQ_US_DELAY 5
+#define ACQ_US_DELAY_TEMP 200
 
 void (*ADC_InterruptHandler)(void);
 
@@ -122,6 +123,29 @@ adc_result_t ADC_GetConversion(adc_channel_t channel)
 
     // Acquisition time delay
     __delay_us(ACQ_US_DELAY);
+
+    // Start the conversion
+    ADCON0bits.GO_nDONE = 1;
+
+    // Wait for the conversion to finish
+    while (ADCON0bits.GO_nDONE)
+    {
+    }
+
+    // Conversion finished, return the result
+    return ((adc_result_t)((ADRESH << 8) + ADRESL));
+}
+
+adc_result_t ADC_GetTemp()
+{
+    // select the A/D channel
+    ADCON0bits.CHS = channel_Temp;    
+    
+    // Turn on the ADC module
+    ADCON0bits.ADON = 1;
+
+    // Acquisition time delay
+    __delay_us(ACQ_US_DELAY_TEMP);
 
     // Start the conversion
     ADCON0bits.GO_nDONE = 1;

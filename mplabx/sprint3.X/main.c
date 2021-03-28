@@ -66,7 +66,7 @@ void main(void)
   // ------------------ Enabling Interrupts --------------------- //
   INTERRUPT_GlobalInterruptEnable();
   INTERRUPT_PeripheralInterruptEnable();
-
+  
   // ------------ Setting button's Interrupt Handler ------------ //
   IOCAF5_SetInterruptHandler(button_ISR);
 

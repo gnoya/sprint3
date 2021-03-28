@@ -314,6 +314,7 @@ adc_result_t ADC_GetConversion(adc_channel_t channel);
     </code>
 */
 void ADC_TemperatureAcquisitionDelay(void);
+adc_result_t ADC_GetTemp();
 
 #ifdef __cplusplus  // Provide C++ Compatibility
 

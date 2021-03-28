@@ -64,7 +64,7 @@
   Section: Macro Declarations
 */
 
-#define TMR0_INTERRUPT_TICKER_FACTOR    10
+#define TMR0_INTERRUPT_TICKER_FACTOR    660
 
 /**
   Section: TMR0 APIs
@@ -295,10 +295,6 @@ extern void (*TMR0_InterruptHandler)(void);
     None
 */
 void TMR0_DefaultInterruptHandler(void);
-
-void TMR0_InterruptEnable(void);
-
-void TMR0_InterruptDisable(void);
 
 #ifdef __cplusplus  // Provide C++ Compatibility
 

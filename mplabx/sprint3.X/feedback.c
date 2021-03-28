@@ -18,7 +18,7 @@
 extern int state;
 static bool debouncing = false;
 bool state_changed = true;
-static led_adapter leds[4];
+static led_adapter leds[5];
 
 static void led_1_feedback(void)
 {
@@ -52,6 +52,14 @@ static void led_4_feedback(void)
   IO_RC4_SetHigh();
 }
 
+static void led_5_feedback(void)
+{
+  IO_RC0_SetLow();
+  IO_RC1_SetLow();
+  IO_RC2_SetLow();
+  IO_RC4_SetLow();
+}
+
 void feedback(int state)
 {
   state_changed = false;
@@ -77,7 +85,9 @@ void button_ISR(void)
   state_changed = true;
 
   // Updating state
-  state = (state + 1) % 4;
+  //state = (state + 1) % 4;
+  state = (state + 1) % 5;
+  if(state == 4) state_changed = false;
 }
 
 void FEEDBACK_Initialize()
@@ -90,4 +100,5 @@ void FEEDBACK_Initialize()
   leds[1].turn_on = led_2_feedback;
   leds[2].turn_on = led_3_feedback;
   leds[3].turn_on = led_4_feedback;
+  leds[4].turn_on = led_5_feedback;
 }

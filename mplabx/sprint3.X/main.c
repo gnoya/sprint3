@@ -49,6 +49,7 @@
 #define HIGH_LIGHT_STATE 1
 #define MUSIC_STATE 2
 #define DMX_STATE 3
+#define SLEEP_STATE 4
 
 led_adapter led;
 eeprom_adapter eeprom;
@@ -109,6 +110,16 @@ void main(void)
       break;
     case DMX_STATE:
       printf("DMX State \n\r");
+      break;
+    case SLEEP_STATE:
+      printf("SLEEP State \n\r");
+      feedback(state);
+      led.turn_off();
+      __delay_ms(500); 
+      SLEEP();
+      //eeprom.read_state(&state);
+      state = LOW_LIGHT_STATE;
+      printf("END SLEEP State \n\r");
       break;
     default:
       break;

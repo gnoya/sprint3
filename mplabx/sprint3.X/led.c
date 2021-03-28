@@ -45,14 +45,14 @@ static void high(void)
   set_green(0);
   set_blue(0);
 }
-/*
+
 static void turn_off(void)
 {
   set_red(0);
   set_green(0);
   set_blue(0);
 }
-
+/*
 static void turn_on(void)
 {
   set_red(0);
@@ -66,6 +66,6 @@ void LED_Initialize(led_adapter *led)
 {
   led->low = low;
   led->high = high;
-  // led->turn_off = turn_off;
+  led->turn_off = turn_off;
   // led->turn_on = turn_on;
 }

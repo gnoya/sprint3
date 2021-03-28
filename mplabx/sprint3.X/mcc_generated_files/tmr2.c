@@ -119,6 +119,7 @@ bool TMR2_HasOverflowOccured(void)
     }
     return status;
 }
-/**
+ */
+/*
   End of File
 */

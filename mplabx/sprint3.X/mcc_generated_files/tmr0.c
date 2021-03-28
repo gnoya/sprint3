@@ -145,6 +145,21 @@ void TMR0_DefaultInterruptHandler(void){
     // or set custom function using TMR0_SetInterruptHandler()
 }
 
+void TMR0_InterruptEnable(void)
+{
+  // Clear Interrupt flag before enabling the interrupt
+  INTCONbits.TMR0IF = 0;
+  // Enabling TMR0 interrupt
+  INTCONbits.TMR0IE = 1;
+}
+
+void TMR0_InterruptDisable(void)
+{
+  // Clear Interrupt flag before enabling the interrupt
+  INTCONbits.TMR0IF = 0;
+  // Enabling TMR0 interrupt
+  INTCONbits.TMR0IE = 0;
+}
 /**
   End of File
 */

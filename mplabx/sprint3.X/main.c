@@ -115,10 +115,11 @@ void main(void)
       printf("SLEEP State \n\r");
       feedback(state);
       led.turn_off();
+      TMR0_InterruptDisable();
       __delay_ms(500); 
       SLEEP();
-      //eeprom.read_state(&state);
-      state = LOW_LIGHT_STATE;
+      eeprom.read_state(&state);
+      TMR0_InterruptEnable();
       printf("END SLEEP State \n\r");
       break;
     default:

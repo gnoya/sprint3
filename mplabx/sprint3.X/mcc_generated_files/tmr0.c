@@ -132,12 +132,6 @@ void TMR0_ISR(void)
 
 void TMR0_CallBack(void)
 {
-    // Add your custom callback code here
-    unsigned int  temp = (unsigned int)ADC_GetTemp();
-    if (temp >= tempLimit){
-        printf("Caliente\r\n");
-        state =3;
-    }
     if(TMR0_InterruptHandler)
     {
         TMR0_InterruptHandler();
@@ -153,6 +147,21 @@ void TMR0_DefaultInterruptHandler(void){
     // or set custom function using TMR0_SetInterruptHandler()
 }
 
+void TMR0_InterruptEnable(void){
+    // Clear Interrupt flag before enabling the interrupt
+    INTCONbits.TMR0IF = 0;
+
+    // Enabling TMR0 interrupt
+    INTCONbits.TMR0IE = 1;
+}
+
+void TMR0_InterruptDisable(void){
+    // Clear Interrupt flag before enabling the interrupt
+    INTCONbits.TMR0IF = 0;
+
+    // Enabling TMR0 interrupt
+    INTCONbits.TMR0IE = 0;
+}
 /**
   End of File
 */

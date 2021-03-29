@@ -45,6 +45,7 @@
 #include "led.h"
 #include "eeprom.h"
 #include "feedback.h"
+#include "temp_sensor.h"
 #define HIGH_LIGHT_STATE 0
 #define MUSIC_STATE 1
 #define DMX_STATE 2
@@ -72,6 +73,7 @@ void main(void)
 
   //------------- Setting Timer Interrupt Handlers --------------//
   TMR1_SetInterruptHandler(debouncing_ISR);
+  TMR0_SetInterruptHandler(temp_ISR);
 
   // --------------------- Reading EEPROM --------------------- //
   eeprom.read_state(&state);
@@ -111,7 +113,6 @@ void main(void)
       // SLEEP();
       // eeprom.read_state(&state);
       // TMR0_InterruptEnable();
-      // printf("END SLEEP State \n\r");
       break;
     default:
       break;

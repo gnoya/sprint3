@@ -46,6 +46,7 @@
 #include "eeprom.h"
 #include "feedback.h"
 #include "temp_sensor.h"
+#include "motor.h"
 #define HIGH_LIGHT_STATE 0
 #define MUSIC_STATE 1
 #define DMX_STATE 2
@@ -53,8 +54,16 @@
 
 led_adapter led;
 eeprom_adapter eeprom;
-extern int state = HIGH_LIGHT_STATE;
+motor_adapter motor;
+int state = HIGH_LIGHT_STATE;
 extern bool state_changed;
+
+void motor_ISR();
+
+void motor_ISR()
+{
+  motor.step(true);
+}
 
 void main(void)
 {
@@ -63,17 +72,19 @@ void main(void)
   LED_Initialize(&led);
   EEPROM_Initialize(&eeprom);
   FEEDBACK_Initialize();
+  MOTOR_Initialize(&motor);
 
   // ------------------ Enabling Interrupts --------------------- //
   INTERRUPT_GlobalInterruptEnable();
   INTERRUPT_PeripheralInterruptEnable();
-  
+
   // ------------ Setting button's Interrupt Handler ------------ //
   IOCAF5_SetInterruptHandler(button_ISR);
 
   //------------- Setting Timer Interrupt Handlers --------------//
-  TMR1_SetInterruptHandler(debouncing_ISR);
   TMR0_SetInterruptHandler(temp_ISR);
+  TMR1_SetInterruptHandler(debouncing_ISR);
+  TMR2_SetInterruptHandler(motor_ISR);
 
   // --------------------- Reading EEPROM --------------------- //
   eeprom.read_state(&state);
@@ -84,13 +95,13 @@ void main(void)
 
   while (1)
   {
-    __delay_ms(1000);
-    if (state_changed)
-    {
-      feedback(state);
-      if (state != SLEEP_STATE)
-        eeprom.write_state(state);
-    }
+    __delay_ms(200);
+    if (!state_changed)
+      return;
+
+    feedback(state);
+    if (state != SLEEP_STATE)
+      eeprom.write_state(state);
 
     switch (state)
     {
@@ -99,14 +110,14 @@ void main(void)
       break;
     case MUSIC_STATE:
       led.set_green(255);
-      printf("MUSIC State \n\r");
+      //printf("MUSIC State \n\r");
       break;
     case DMX_STATE:
       led.set_blue(255);
-      printf("DMX State \n\r");
+      //printf("DMX State \n\r");
       break;
     case SLEEP_STATE:
-      printf("SLEEP State \n\r");
+      //printf("SLEEP State \n\r");
       led.turn_off();
       // TMR0_InterruptDisable();
       // __delay_ms(500);

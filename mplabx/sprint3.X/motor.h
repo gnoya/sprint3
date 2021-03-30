@@ -20,8 +20,19 @@
  */
 
 /* 
- * File:   
- * Author: 
+ * File: motor.c
+ * Author: Grupo 2
  * Comments:
  * Revision history: 
  */
+
+typedef struct motor_adapter
+{
+  void (*step)(bool direction);
+} motor_adapter;
+
+static void ccw();
+static void cw();
+static void step(bool direction);
+
+void MOTOR_Initialize(motor_adapter *motor);

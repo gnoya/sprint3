@@ -6,6 +6,8 @@
  */
 
 #include "mcc_generated_files/mcc.h"
+#include <stdio.h>
+#include <stdbool.h>
 #include "feedback.h"
 #include "eeprom.h"
 #include "led.h"

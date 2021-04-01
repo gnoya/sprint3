@@ -47,6 +47,8 @@
 #include "feedback.h"
 #include "temp_sensor.h"
 #include "motor.h"
+#include <stdbool.h>
+
 #define HIGH_LIGHT_STATE 0
 #define MUSIC_STATE 1
 #define DMX_STATE 2
@@ -56,13 +58,14 @@ led_adapter led;
 eeprom_adapter eeprom;
 motor_adapter motor;
 int state = HIGH_LIGHT_STATE;
-extern bool state_changed;
+bool main_interrupt = false;
+bool state_changed;
 
-void motor_ISR();
+void main_ISR();
 
-void motor_ISR()
+void main_ISR()
 {
-  motor.step(true);
+  main_interrupt = true;
 }
 
 void main(void)
@@ -84,9 +87,10 @@ void main(void)
   //------------- Setting Timer Interrupt Handlers --------------//
   TMR0_SetInterruptHandler(temp_ISR);
   TMR1_SetInterruptHandler(debouncing_ISR);
-  TMR2_SetInterruptHandler(motor_ISR);
+  TMR2_SetInterruptHandler(main_ISR);
 
   // --------------------- Reading EEPROM --------------------- //
+  printf("Turning on the MCU\r\n");
   eeprom.read_state(&state);
   __delay_ms(200);
 
@@ -95,38 +99,43 @@ void main(void)
 
   while (1)
   {
-    __delay_ms(200);
-    if (!state_changed)
-      return;
-
-    feedback(state);
-    if (state != SLEEP_STATE)
-      eeprom.write_state(state);
-
-    switch (state)
+    if (main_interrupt)
     {
-    case HIGH_LIGHT_STATE:
-      led.set_red(255);
-      break;
-    case MUSIC_STATE:
-      led.set_green(255);
-      //printf("MUSIC State \n\r");
-      break;
-    case DMX_STATE:
-      led.set_blue(255);
-      //printf("DMX State \n\r");
-      break;
-    case SLEEP_STATE:
-      //printf("SLEEP State \n\r");
-      led.turn_off();
-      // TMR0_InterruptDisable();
-      // __delay_ms(500);
-      // SLEEP();
-      // eeprom.read_state(&state);
-      // TMR0_InterruptEnable();
-      break;
-    default:
-      break;
+      if (state != SLEEP_STATE && state_changed)
+        eeprom.write_state(state);
+
+      if (state_changed)
+        feedback(state);
+
+      switch (state)
+      {
+      case HIGH_LIGHT_STATE:
+        led.set_red(255);
+        break;
+      case MUSIC_STATE:
+        led.set_green(255);
+        break;
+      case DMX_STATE:
+        led.set_blue(255);
+        motor.step(true);
+        break;
+      case SLEEP_STATE:
+        printf("SLEEP State \n\r");
+        led.turn_off();
+        // TMR0_InterruptDisable();
+        // __delay_ms(500);
+        // SLEEP();
+        // eeprom.read_state(&state);
+        // TMR0_InterruptEnable();
+        break;
+      default:
+        break;
+      }
+
+      main_interrupt = false;
+    }
+    else
+    {
     }
   }
 }

@@ -51,9 +51,7 @@ static void motor_state_3()
 
 static void cw()
 {
-  printf("Motor state ++\r\n");
-  motor_state++;
-  printf("Motor state after %d\r\n", motor_state);
+  motor_state = (motor_state + 1) % 4;
 }
 
 static void ccw()
@@ -64,7 +62,6 @@ static void ccw()
 
 static void step(bool direction)
 {
-  printf("Motor step; motor_state: %d\r\n", motor_state);
   if (direction)
   {
     cw();

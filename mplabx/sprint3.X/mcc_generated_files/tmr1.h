@@ -54,18 +54,18 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#ifdef __cplusplus  // Provide C++ Compatibility
+#ifdef __cplusplus // Provide C++ Compatibility
 
-    extern "C" {
+extern "C"
+{
 
 #endif
 
-
-/**
+  /**
   Section: TMR1 APIs
 */
 
-/**
+  /**
   @Summary
     Initializes the TMR1
 
@@ -97,9 +97,9 @@
     }
     </code>
 */
-void TMR1_Initialize(void);
+  void TMR1_Initialize(void);
 
-/**
+  /**
   @Summary
     This function starts the TMR1.
 
@@ -126,9 +126,9 @@ void TMR1_Initialize(void);
     // Do something else...
     </code>
 */
-void TMR1_StartTimer(void);
+  void TMR1_StartTimer(void);
 
-/**
+  /**
   @Summary
     This function stops the TMR1.
 
@@ -158,9 +158,9 @@ void TMR1_StartTimer(void);
     TMR1_StopTimer();
     </code>
 */
-void TMR1_StopTimer(void);
+  void TMR1_StopTimer(void);
 
-/**
+  /**
   @Summary
     Reads the TMR1 register.
 
@@ -193,9 +193,9 @@ void TMR1_StopTimer(void);
     }
     </code>
 */
-uint16_t TMR1_ReadTimer(void);
+  uint16_t TMR1_ReadTimer(void);
 
-/**
+  /**
   @Summary
     Writes the TMR1 register.
 
@@ -232,9 +232,9 @@ uint16_t TMR1_ReadTimer(void);
     }
     </code>
 */
-void TMR1_WriteTimer(uint16_t timerVal);
+  void TMR1_WriteTimer(uint16_t timerVal);
 
-/**
+  /**
   @Summary
     Reload the TMR1 register.
 
@@ -268,9 +268,9 @@ void TMR1_WriteTimer(uint16_t timerVal);
     }
     </code>
 */
-// void TMR1_Reload(void);
+  void TMR1_Reload(void);
 
-/**
+  /**
   @Summary
     Starts the single pulse acquisition in TMR1 gate operation.
 
@@ -307,9 +307,9 @@ void TMR1_WriteTimer(uint16_t timerVal);
     yVal = TMR1_ReadTimer();
     </code>
 */
-// void TMR1_StartSinglePulseAcquisition(void);
+  void TMR1_StartSinglePulseAcquisition(void);
 
-/**
+  /**
   @Summary
     Check the current state of Timer1 gate.
 
@@ -346,9 +346,9 @@ void TMR1_WriteTimer(uint16_t timerVal);
     yVal = TMR1_ReadTimer();
     </code>
 */
-// uint8_t TMR1_CheckGateValueStatus(void);
+  uint8_t TMR1_CheckGateValueStatus(void);
 
-/**
+  /**
   @Summary
     Timer Interrupt Service Routine
 
@@ -364,9 +364,9 @@ void TMR1_WriteTimer(uint16_t timerVal);
   @Returns
     None
 */
-void TMR1_ISR(void);
+  void TMR1_ISR(void);
 
-/**
+  /**
   @Summary
     Set Timer Interrupt Handler
 
@@ -382,9 +382,9 @@ void TMR1_ISR(void);
   @Returns
     None
 */
- void TMR1_SetInterruptHandler(void (* InterruptHandler)(void));
+  void TMR1_SetInterruptHandler(void (*InterruptHandler)(void));
 
-/**
+  /**
   @Summary
     Timer Interrupt Handler
 
@@ -400,9 +400,9 @@ void TMR1_ISR(void);
   @Returns
     None
 */
-extern void (*TMR1_InterruptHandler)(void);
+  extern void (*TMR1_InterruptHandler)(void);
 
-/**
+  /**
   @Summary
     Default Timer Interrupt Handler
 
@@ -418,15 +418,14 @@ extern void (*TMR1_InterruptHandler)(void);
   @Returns
     None
 */
-void TMR1_DefaultInterruptHandler(void);
+  void TMR1_DefaultInterruptHandler(void);
 
-void TMR1_InterruptEnable(void);
+  void TMR1_InterruptEnable(void);
 
-void TMR1_InterruptDisable(void);
+  void TMR1_InterruptDisable(void);
 
-#ifdef __cplusplus  // Provide C++ Compatibility
-
-    }
+#ifdef __cplusplus // Provide C++ Compatibility
+}
 
 #endif
 

@@ -33,7 +33,8 @@ static void turn_selectors(bool selector1, bool selector2)
 
 static void set_brightness(int pwm)
 {
-  PWM4_LoadDutyValue((uint16_t)(255 - pwm));
+  printf("Setting brightness of %d \r\n", pwm);
+  PWM4_LoadDutyValue((uint16_t)(pwm));
 }
 
 static void turn_red(void)

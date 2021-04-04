@@ -106,9 +106,16 @@ void main(void)
 
       if (state_changed)
       {
+        // Feedback the new stage
         feedback(state);
+
+        // Save to EEPROM except for SLEEP STATE
         if (state != SLEEP_STATE)
           eeprom.write_state(state);
+
+        // The last state turned off the leds, so we turn them on again
+        if (state == HIGH_LIGHT_STATE)
+          led.set_brightness(255);
       }
 
       switch (state)

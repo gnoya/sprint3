@@ -26,4 +26,6 @@
  * Revision history: 
  */
 
+static void led_commands();
+static void motor_commands();
 void command();

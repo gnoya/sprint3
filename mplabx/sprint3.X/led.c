@@ -10,6 +10,13 @@
 #include <stdbool.h>
 #include "led.h"
 
+#define RED 0
+#define GREEN 1
+#define BLUE 2
+
+static int current_color = RED;
+static int current_brightness = 0;
+
 static void turn_selectors(bool selector1, bool selector2)
 {
   if (selector1)
@@ -33,29 +40,48 @@ static void turn_selectors(bool selector1, bool selector2)
 
 static void set_brightness(int pwm)
 {
-  printf("Setting brightness of %d \r\n", pwm);
+  current_brightness = pwm;
   PWM4_LoadDutyValue((uint16_t)(pwm));
 }
 
 static void turn_red(void)
 {
+  current_color = RED;
   turn_selectors(1, 0);
 }
 
 static void turn_green(void)
 {
+  current_color = GREEN;
   turn_selectors(0, 1);
 }
 
 static void turn_blue(void)
 {
+  current_color = BLUE;
   turn_selectors(1, 1);
 }
 
-static void high(void)
+static void turn_on(void)
 {
-  turn_red();
-  set_brightness(255);
+  // Turns on using the current color
+  switch (current_color)
+  {
+  case RED:
+    turn_red();
+    break;
+  case GREEN:
+    turn_green();
+    break;
+  case BLUE:
+    turn_blue();
+    break;
+  default:
+    break;
+  }
+
+  // Turns on using the current brightness
+  set_brightness(current_brightness);
 }
 
 static void turn_off(void)
@@ -67,7 +93,7 @@ static void turn_off(void)
 // ----------------------- Public functions ----------------------- //
 void LED_Initialize(led_adapter *led)
 {
-  led->high = high;
+  led->turn_on = turn_on;
   led->turn_off = turn_off;
   led->turn_red = turn_red;
   led->turn_green = turn_green;

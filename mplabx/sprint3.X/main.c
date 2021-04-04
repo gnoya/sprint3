@@ -48,6 +48,7 @@
 #include "feedback.h"
 #include "temp_sensor.h"
 #include "motor.h"
+#include "cmd_interpreter.h"
 
 #define HIGH_LIGHT_STATE 0
 #define MUSIC_STATE 1
@@ -57,6 +58,7 @@
 led_adapter led;
 eeprom_adapter eeprom;
 motor_adapter motor;
+
 int state = HIGH_LIGHT_STATE;
 bool main_interrupt = false;
 bool state_changed;
@@ -115,7 +117,7 @@ void main(void)
 
         // The last state turned off the leds, so we turn them on again
         if (state == HIGH_LIGHT_STATE)
-          led.set_brightness(255);
+          led.turn_on();
       }
 
       switch (state)
@@ -123,13 +125,16 @@ void main(void)
       case HIGH_LIGHT_STATE:
         led.turn_red();
         break;
+
       case MUSIC_STATE:
         led.turn_green();
         break;
+
       case DMX_STATE:
-        led.turn_blue();
+        command();
         motor.step();
         break;
+
       case SLEEP_STATE:
         printf("SLEEP State \n\r");
         led.turn_off();

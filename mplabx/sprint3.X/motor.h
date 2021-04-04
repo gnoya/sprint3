@@ -28,11 +28,13 @@
 
 typedef struct motor_adapter
 {
-  void (*step)(bool direction);
+  void (*step)(void);
+  void (*set_direction)(bool direction);
 } motor_adapter;
 
 static void ccw();
 static void cw();
-static void step(bool direction);
+static void set_direction(bool direction);
+static void step();
 
 void MOTOR_Initialize(motor_adapter *motor);

@@ -25,3 +25,5 @@
  * Comments:
  * Revision history: 
  */
+
+void command();

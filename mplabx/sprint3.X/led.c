@@ -31,41 +31,36 @@ static void turn_selectors(bool selector1, bool selector2)
   }
 }
 
-static void set_pwm(int pwm)
+static void set_brightness(int pwm)
 {
   PWM4_LoadDutyValue((uint16_t)(255 - pwm));
 }
 
-static void set_red(int pwm)
+static void turn_red(void)
 {
   turn_selectors(1, 0);
-  // 0 to 255
-  set_pwm(pwm);
 }
 
-static void set_green(int pwm)
+static void turn_green(void)
 {
   turn_selectors(0, 1);
-  // 0 to 255
-  set_pwm(pwm);
 }
 
-static void set_blue(int pwm)
+static void turn_blue(void)
 {
   turn_selectors(1, 1);
-  // 0 to 255
-  set_pwm(pwm);
 }
 
 static void high(void)
 {
-  set_red(255);
+  turn_red();
+  set_brightness(255);
 }
 
 static void turn_off(void)
 {
   turn_selectors(0, 0);
-  set_pwm(0);
+  set_brightness(0);
 }
 
 // ----------------------- Public functions ----------------------- //
@@ -73,7 +68,8 @@ void LED_Initialize(led_adapter *led)
 {
   led->high = high;
   led->turn_off = turn_off;
-  led->set_red = set_red;
-  led->set_green = set_green;
-  led->set_blue = set_blue;
+  led->turn_red = turn_red;
+  led->turn_green = turn_green;
+  led->turn_blue = turn_blue;
+  led->set_brightness = set_brightness;
 }

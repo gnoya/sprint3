@@ -41,13 +41,13 @@
     SOFTWARE.
 */
 
+#include <stdbool.h>
 #include "mcc_generated_files/mcc.h"
 #include "led.h"
 #include "eeprom.h"
 #include "feedback.h"
 #include "temp_sensor.h"
 #include "motor.h"
-#include <stdbool.h>
 
 #define HIGH_LIGHT_STATE 0
 #define MUSIC_STATE 1
@@ -97,27 +97,31 @@ void main(void)
   // ----------------------- Feedback ------------------------ //
   feedback(state);
 
+  led.set_brightness(255);
+
   while (1)
   {
     if (main_interrupt)
     {
-      if (state != SLEEP_STATE && state_changed)
-        eeprom.write_state(state);
 
       if (state_changed)
+      {
         feedback(state);
+        if (state != SLEEP_STATE)
+          eeprom.write_state(state);
+      }
 
       switch (state)
       {
       case HIGH_LIGHT_STATE:
-        led.set_red(255);
+        led.turn_red();
         break;
       case MUSIC_STATE:
-        led.set_green(255);
+        led.turn_green();
         break;
       case DMX_STATE:
-        led.set_blue(255);
-        motor.step(true);
+        led.turn_blue();
+        motor.step();
         break;
       case SLEEP_STATE:
         printf("SLEEP State \n\r");
@@ -136,6 +140,7 @@ void main(void)
     }
     else
     {
+      // Sleep aqui maybe ?
     }
   }
 }

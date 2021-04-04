@@ -65,8 +65,8 @@ void TMR2_Initialize(void)
 {
     // Set TMR2 to the options selected in the User Interface
 
-    // PR2 124; 
-    PR2 = 0x7C;
+    // PR2 62; 
+    PR2 = 0x3E;
 
     // TMR2 0; 
     TMR2 = 0x00;
@@ -123,7 +123,7 @@ void TMR2_ISR(void)
     // clear the TMR2 interrupt flag
     PIR1bits.TMR2IF = 0;
 
-    // callback function - called every 16th pass
+    // callback function - called every 32th pass
     if (++CountCallBack >= TMR2_INTERRUPT_TICKER_FACTOR)
     {
         // ticker function call

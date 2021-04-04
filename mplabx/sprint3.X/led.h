@@ -38,10 +38,10 @@ typedef struct led_adapter
   void (*turn_off)(void);
   void (*turn_on)(void);
   void (*high)(void);
-  void (*set_red)(int pwm);
-  void (*set_green)(int pwm);
-  void (*set_blue)(int pwm);
-
+  void (*turn_red)(void);
+  void (*turn_green)(void);
+  void (*turn_blue)(void);
+  void (*set_brightness)(int pwm);
 } led_adapter;
 
 /**
@@ -116,8 +116,8 @@ static void turn_on(void);
 */
 void LED_Initialize(led_adapter *led);
 
-static void set_red(int pwm);
-static void set_green(int pwm);
-static void set_blue(int pwm);
-static void set_pwm(int pwm);
+static void turn_red(void);
+static void turn_green(void);
+static void turn_blue(void);
+static void set_brightness(int pwm);
 static void turn_selectors(bool selector1, bool selector2);

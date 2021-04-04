@@ -16,6 +16,7 @@
 #define STEP_3 3 // 1 0 0 1
 
 static int motor_state = STEP_0;
+static bool motor_direction = true;
 
 static void motor_state_0()
 {
@@ -60,9 +61,14 @@ static void ccw()
     motor_state = STEP_3;
 }
 
-static void step(bool direction)
+static void set_direction(bool direction)
 {
-  if (direction)
+  motor_direction = direction;
+}
+
+static void step()
+{
+  if (motor_direction)
   {
     cw();
   }
@@ -93,4 +99,5 @@ static void step(bool direction)
 void MOTOR_Initialize(motor_adapter *motor)
 {
   motor->step = step;
+  motor->set_direction = set_direction;
 }

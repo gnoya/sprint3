@@ -17,6 +17,9 @@
 static int current_color = RED;
 static int current_brightness = 0;
 
+static int music_counter = 0;
+static unsigned int measures[10]; 
+
 static void turn_selectors(bool selector1, bool selector2)
 {
   if (selector1)
@@ -54,6 +57,18 @@ static void turn_green(void)
 {
   current_color = GREEN;
   turn_selectors(0, 1);
+}
+
+static void music(void)
+{
+    measures[music_counter] = (unsigned int)ADC_GetConversion(0x02);
+    music_counter++;
+    
+    if (music_counter>10){
+        music_counter = 0;
+        printf("10 valores\r\n");
+    }
+    
 }
 
 static void turn_blue(void)
@@ -99,4 +114,5 @@ void LED_Initialize(led_adapter *led)
   led->turn_green = turn_green;
   led->turn_blue = turn_blue;
   led->set_brightness = set_brightness;
+  led->music = music;
 }

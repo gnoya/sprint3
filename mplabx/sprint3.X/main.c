@@ -70,6 +70,8 @@ void main_ISR()
   main_interrupt = true;
 }
 
+
+
 void main(void)
 {
   // ---------------- Initializing led and menu ---------------- //
@@ -128,6 +130,7 @@ void main(void)
 
       case MUSIC_STATE:
         led.turn_green();
+        led.music();
         break;
 
       case DMX_STATE:

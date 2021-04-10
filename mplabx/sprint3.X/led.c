@@ -18,7 +18,9 @@ static int current_color = RED;
 static int current_brightness = 0;
 
 static int music_counter = 0;
-static unsigned int measures[10]; 
+static unsigned int music_sample_limit = 20;
+static unsigned int music_color_limit = 2500;
+static unsigned int measures = 0; 
 
 static void turn_selectors(bool selector1, bool selector2)
 {
@@ -61,16 +63,19 @@ static void turn_green(void)
 
 static void music(void)
 {
-    measures[music_counter] = (unsigned int)ADC_GetConversion(0x02);
+    measures += (unsigned int)ADC_GetConversion(0x02);
     music_counter++;
     
-    if (music_counter>10){
+    if (music_counter > music_sample_limit){
         music_counter = 0;
-        printf("10 valores\r\n");
+        printf("%u \r\n",(measures/music_sample_limit));
+        if ((measures/music_sample_limit) > music_color_limit){
+            printf("cambio\r\n");
+        }
+       
     }
     
 }
-
 static void turn_blue(void)
 {
   current_color = BLUE;

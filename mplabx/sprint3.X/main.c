@@ -130,7 +130,6 @@ void main(void)
 
       case MUSIC_STATE:
         led.turn_green();
-        led.music();
         break;
 
       case DMX_STATE:
@@ -155,7 +154,9 @@ void main(void)
     }
     else
     {
-      // Sleep aqui maybe ?
+        if (state == MUSIC_STATE ){
+            led.music();
+        }
     }
   }
 }

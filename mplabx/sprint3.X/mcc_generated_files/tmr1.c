@@ -89,7 +89,7 @@ void TMR1_Initialize(void)
   // T1CKPS 1:1; T1OSCEN disabled; nT1SYNC synchronize; TMR1CS FOSC/4; TMR1ON enabled;
   T1CON = 0x01;
 }
-
+/*
 void TMR1_StartTimer(void)
 {
   // Start the Timer by writing to TMRxON bit
@@ -115,6 +115,7 @@ uint16_t TMR1_ReadTimer(void)
 
   return readVal;
 }
+ */
 
 void TMR1_WriteTimer(uint16_t timerVal)
 {
@@ -137,7 +138,7 @@ void TMR1_WriteTimer(uint16_t timerVal)
     TMR1L = (uint8_t)timerVal;
   }
 }
-
+/*
 void TMR1_Reload(void)
 {
   TMR1_WriteTimer(timer1ReloadVal);
@@ -152,7 +153,7 @@ uint8_t TMR1_CheckGateValueStatus(void)
 {
   return (T1GCONbits.T1GVAL);
 }
-
+*/
 void TMR1_ISR(void)
 {
 

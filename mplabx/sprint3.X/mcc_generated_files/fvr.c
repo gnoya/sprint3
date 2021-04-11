@@ -60,11 +60,12 @@ void FVR_Initialize(void)
     // CDAFVR off; FVREN enabled; TSRNG Lo_range; ADFVR off; TSEN enabled; 
     FVRCON = 0xA0;
 }
-
+/*
 bool FVR_IsOutputReady(void)
 {
     return (FVRCONbits.FVRRDY);
 }
+ */
 /**
  End of File
 */

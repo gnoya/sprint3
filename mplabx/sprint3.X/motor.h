@@ -30,6 +30,7 @@ typedef struct motor_adapter
 {
   void (*step)(void);
   void (*set_direction)(bool direction);
+  void (*swap_direction)(void);
 } motor_adapter;
 
 /**
@@ -79,6 +80,18 @@ static void set_direction(bool direction);
     None
 */
 static void step();
+
+/**
+  @Summary
+    This functions changes the direction of the motor
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
+static void swap_direction();
 
 /**
   @Summary

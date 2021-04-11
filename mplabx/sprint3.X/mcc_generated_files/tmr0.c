@@ -83,7 +83,7 @@ void TMR0_Initialize(void)
     // Set Default Interrupt Handler
     TMR0_SetInterruptHandler(TMR0_DefaultInterruptHandler);
 }
-
+/*
 uint8_t TMR0_ReadTimer(void)
 {
     uint8_t readVal;
@@ -104,6 +104,7 @@ void TMR0_Reload(void)
     // Write to the Timer0 register
     TMR0 = timer0ReloadVal;
 }
+*/
 
 void TMR0_ISR(void)
 {

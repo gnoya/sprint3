@@ -137,6 +137,7 @@ void main(void)
         it changes the light of the LEDs
       */
       case MUSIC_STATE:
+        led.turn_on();
         audio.measure();
         audio.act();
         motor.step();
@@ -160,7 +161,6 @@ void main(void)
         TMR0_InterruptDisable();
         SLEEP();
         state = HIGH_LIGHT_STATE;
-        // eeprom.read_state(&state);
         TMR0_InterruptEnable();
         break;
       default:

@@ -75,7 +75,7 @@
      PWM4DCH = (dutyValue & 0x03FC)>>2;
      
      // Writing to 2 LSBs of PWM duty cycle in PWMDCL register
-     PWM4DCL = (dutyValue & 0x0003)<<6;
+     PWM4DCL = (unsigned char)((dutyValue & 0x0003)<<6);
  }
  /**
   End of File

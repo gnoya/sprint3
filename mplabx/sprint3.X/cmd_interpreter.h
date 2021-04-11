@@ -61,4 +61,4 @@ static void motor_commands();
   @Returns
     None
 */
-void command();
+void command(void);

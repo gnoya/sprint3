@@ -100,7 +100,7 @@ static void motor_commands()
   }
 }
 
-void command()
+void command(void)
 {
   // Added this counter so the states last longer
   if (mock_counter++ >= 7)

@@ -11,10 +11,13 @@
 #include "audio.h"
 #include "led.h"
 #include "filter.h"
+#include "motor.h"
 
 #define AVERAGE_THRESHOLD 4500
 
 extern led_adapter led;
+extern motor_adapter motor;
+
 static filter audio_filter;
 
 static void measure(void)
@@ -34,7 +37,9 @@ static void act(void)
   // If the average is greater than a threshold, change the color of the LED
   if (filter_average >= AVERAGE_THRESHOLD)
   {
+    printf("Audio threshold: changing color and motor direction\r\n");
     led.next_color();
+    motor.swap_direction();
   }
 }
 

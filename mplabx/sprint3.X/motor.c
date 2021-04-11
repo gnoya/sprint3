@@ -75,6 +75,11 @@ static void set_direction(bool direction)
   motor_direction = direction;
 }
 
+static void swap_direction()
+{
+  motor_direction = !motor_direction;
+}
+
 static void step()
 {
   // Check direction to update the state
@@ -113,4 +118,5 @@ void MOTOR_Initialize(motor_adapter *motor)
 {
   motor->step = step;
   motor->set_direction = set_direction;
+  motor->swap_direction = swap_direction;
 }

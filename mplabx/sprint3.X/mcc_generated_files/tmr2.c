@@ -83,7 +83,7 @@ void TMR2_Initialize(void)
     // T2CKPS 1:64; T2OUTPS 1:1; TMR2ON on; 
     T2CON = 0x07;
 }
-
+/*
 void TMR2_StartTimer(void)
 {
     // Start the Timer by writing to TMRxON bit
@@ -115,7 +115,7 @@ void TMR2_LoadPeriodRegister(uint8_t periodVal)
 {
    PR2 = periodVal;
 }
-
+*/
 void TMR2_ISR(void)
 {
     static volatile unsigned int CountCallBack = 0;

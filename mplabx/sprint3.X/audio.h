@@ -29,8 +29,43 @@
 typedef struct audio_adapter
 {
   void (*measure)(void);
+  void (*act)(void);
 } audio_adapter;
 
+/**
+  @Summary
+    This functions measures the ADC from the PIN connected to the processed audio signal.
+    Then, pushes the value into a filter.
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
 static void measure(void);
 
+/**
+  @Summary
+    This functions calculates the average of the filter, and if it is higher than
+    a threshold, it changes the LEDs colors.
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
+static void act(void);
+
+/**
+  @Summary
+    This functions initializes the audio module.
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
 void AUDIO_Initialize(audio_adapter *sound);

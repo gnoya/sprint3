@@ -12,7 +12,7 @@
 #include "led.h"
 #include "filter.h"
 
-#define AVERAGE_THRESHOLD 2500
+#define AVERAGE_THRESHOLD 4500
 
 extern led_adapter led;
 static filter audio_filter;
@@ -24,11 +24,12 @@ static void measure(void)
 
   // Push the value to the filter
   audio_filter.push_and_shift(measured_value);
+}
 
+static void act(void)
+{
   // Calculate the average of the values in the filter
   unsigned int filter_average = audio_filter.average();
-
-  printf("Average: %d\r\n", filter_average);
 
   // If the average is greater than a threshold, change the color of the LED
   if (filter_average >= AVERAGE_THRESHOLD)
@@ -40,5 +41,6 @@ static void measure(void)
 void AUDIO_Initialize(audio_adapter *audio)
 {
   audio->measure = measure;
+  audio->act = act;
   FILTER_Initialize(&audio_filter);
 }

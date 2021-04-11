@@ -26,6 +26,39 @@
  * Revision history: 
  */
 
+/**
+  @Summary
+    This functions runs the Switch case for the LED commands
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
 static void led_commands();
+
+/**
+  @Summary
+    This functions runs the Switch case for the MOTOR commands
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
 static void motor_commands();
+
+/**
+  @Summary
+    This functions runs the next command in the list. This is a "mock" function
+    to simulate every possible command.
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
 void command();

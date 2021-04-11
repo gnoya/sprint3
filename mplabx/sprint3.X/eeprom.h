@@ -32,6 +32,38 @@ typedef struct eeprom_adapter
   void (*write_state)(int state);
 } eeprom_adapter;
 
+/**
+  @Summary
+    This functions reads the state of the system in the EEPROM
+
+  @Param
+    int *state: the variable to store the read state
+
+  @Returns
+    None
+*/
 static void read_state(int *state);
+
+/**
+  @Summary
+    This functions writes the state of the system in the EEPROM
+
+  @Param
+    int state: the state to write to the EEPROM
+
+  @Returns
+    None
+*/
 static void write_state(int state);
+
+/**
+  @Summary
+    This functions initializes the EEPROM module
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
 void EEPROM_Initialize(eeprom_adapter *eeprom);

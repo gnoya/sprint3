@@ -32,7 +32,39 @@ typedef struct filter
   unsigned int (*average)(void);
 } filter;
 
+/**
+  @Summary
+    This functions pushes a new value to the data array. Also, it removes the latest
+    value stored (some sort of FIFO)
+
+  @Param
+    unsigned int value: the value to be stored
+
+  @Returns
+    None
+*/
 void push_and_shift(unsigned int value);
+
+/**
+  @Summary
+    This functions will calculate the average of the values inside the filter
+
+  @Param
+    None
+
+  @Returns
+    unsigned int average: the average of the data array
+*/
 unsigned int average();
 
+/**
+  @Summary
+    This functions initialize the filter
+
+  @Param
+    filter *audio_filter: the filter object
+
+  @Returns
+    None
+*/
 void FILTER_Initialize(filter *audio_filter);

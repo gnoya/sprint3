@@ -10,14 +10,14 @@
 
 extern int state;
 extern bool state_changed;
-unsigned int tempLimit = 38592;
+static unsigned int temp_limit = 38592;
 
 void temp_ISR(void)
 {
   unsigned int temp = (unsigned int)ADC_GetTemp();
-  if (temp >= tempLimit)
+  if (temp >= temp_limit)
   {
-    printf("Caliente\r\n");
+    printf("System temperature is too high, setting SLEEP STATE\r\n");
     state_changed = true;
     state = SLEEP_STATE;
   }

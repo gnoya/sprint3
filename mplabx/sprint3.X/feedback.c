@@ -12,10 +12,10 @@
 #include "eeprom.h"
 #include "led.h"
 
-#define LOW_LIGHT_STATE 0
-#define HIGH_LIGHT_STATE 1
-#define MUSIC_STATE 2
-#define DMX_STATE 3
+#define HIGH_LIGHT_STATE 0 // selectors: 1 0
+#define MUSIC_STATE 1      // selectors: 0 1
+#define DMX_STATE 2        // selectors: 1 1
+#define SLEEP_STATE 3      // selectors: 0 0
 
 extern int state;
 static bool debouncing = false;
@@ -43,22 +43,22 @@ static void turn_selectors(bool selector1, bool selector2)
   }
 }
 
-static void led_0_feedback(void)
+static void high_light_feedback(void)
 {
   turn_selectors(1, 0);
 }
 
-static void led_1_feedback(void)
+static void music_feedback(void)
 {
   turn_selectors(0, 1);
 }
 
-static void led_2_feedback(void)
+static void dmx_feedback(void)
 {
   turn_selectors(1, 1);
 }
 
-static void led_3_feedback(void)
+static void sleep_feedback(void)
 {
   turn_selectors(0, 0);
 }
@@ -98,8 +98,8 @@ void FEEDBACK_Initialize()
    * Using the turn_on function to also
    * turn down the other LEDs
   */
-  leds[0].turn_on = led_0_feedback;
-  leds[1].turn_on = led_1_feedback;
-  leds[2].turn_on = led_2_feedback;
-  leds[3].turn_on = led_3_feedback;
+  leds[0].turn_on = high_light_feedback;
+  leds[1].turn_on = music_feedback;
+  leds[2].turn_on = dmx_feedback;
+  leds[3].turn_on = sleep_feedback;
 }

@@ -99,16 +99,20 @@ void main(void)
   eeprom.read_state(&state);
   __delay_ms(200);
 
-  // ----------------------- Feedback ------------------------ //
+  // ----------------------- Feedback ------------------------- //
   feedback(state);
 
+  // ----------------------- LEDs on ------------------------- //
   led.set_brightness(255);
+  led.turn_on();
 
   while (1)
   {
+    // This variable will change to true at 3 Hz
     if (main_interrupt)
     {
 
+      // This will change by pressing the mode button
       if (state_changed)
       {
         // Feedback the new state
@@ -117,36 +121,47 @@ void main(void)
         // Save to EEPROM except for SLEEP STATE
         if (state != SLEEP_STATE)
           eeprom.write_state(state);
-
-        // The last state turned off the leds, so we turn them on again
-        if (state == HIGH_LIGHT_STATE)
-          led.turn_on();
       }
 
       switch (state)
       {
+      // This mode turns the LEDs to Red and maximum brightness
       case HIGH_LIGHT_STATE:
+        led.set_brightness(255);
         led.turn_red();
+        led.turn_on();
         break;
 
+      /* This mode samples the .wav audio signal after an analog filter.
+        If the average of a sliding window is greater than a threshold
+        it changes the light of the LEDs
+      */
       case MUSIC_STATE:
         audio.measure();
-        // led.turn_green();
+        audio.act();
+        motor.step();
         break;
 
+      /* This mode will listen to the UART to get commands using DMX.
+        We couldn't read the DMX protocol, so we made this command() mock function
+        in order to test it.
+      */
       case DMX_STATE:
         command();
         motor.step();
         break;
 
+      /* This mode will put the MCU to Sleep to save energy
+        Also, this is the default state when the temperature is too high
+      */
       case SLEEP_STATE:
-        printf("SLEEP State \n\r");
+        printf("SLEEP STATE \n\r");
         led.turn_off();
-        // TMR0_InterruptDisable();
-        // __delay_ms(500);
-        // SLEEP();
+        TMR0_InterruptDisable();
+        SLEEP();
+        state = HIGH_LIGHT_STATE;
         // eeprom.read_state(&state);
-        // TMR0_InterruptEnable();
+        TMR0_InterruptEnable();
         break;
       default:
         break;
@@ -156,12 +171,10 @@ void main(void)
     }
     else
     {
-      // if (state == MUSIC_STATE ){
-      //     led.music();
-      // }
     }
   }
 }
+
 /**
  End of File
 */

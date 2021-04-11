@@ -46,13 +46,7 @@ typedef struct led_adapter
 
 /**
   @Summary
-    This functions turns off the led
-
-  @Description
     This functions turns off the led by changing the duty cycle of the PWM
-
-  @Preconditions
-    None
 
   @Param
     None
@@ -64,13 +58,7 @@ static void turn_off(void);
 
 /**
   @Summary
-    This functions turns on the led to the maximum brightness
-
-  @Description
-    This functions turns on the led by changing the duty cycle of the PWM
-
-  @Preconditions
-    None
+    This functions turns on the led using the color and brightness stored values
 
   @Param
     None
@@ -79,6 +67,79 @@ static void turn_off(void);
     None
 */
 static void turn_on(void);
+
+/**
+  @Summary
+    This functions changes the color of the LEDs to red
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
+static void turn_red(void);
+
+/**
+  @Summary
+    This functions changes the color of the LEDs to green
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
+static void turn_green(void);
+
+/**
+  @Summary
+    This functions changes the color of the LEDs to blue
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
+static void turn_blue(void);
+
+/**
+  @Summary
+    This functions changes the brightness of the LED given a PWM
+
+  @Param
+    int pwm: value from 0 (minimum bright) to 255 (maximum bright)
+
+  @Returns
+    None
+*/
+static void set_brightness(int pwm);
+
+/**
+  @Summary
+    This functions changes the selectos of the LED demux
+
+  @Param
+    bool selector1: changes the value of the selector 1
+    bool selector2: changes the value of the selector 2
+    
+  @Returns
+    None
+*/
+static void turn_selectors(bool selector1, bool selector2);
+
+/**
+  @Summary
+    This functions changes the color to the next (Order: RED -> GREEN -> BLUE)
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
+static void next_color(void);
 
 /**
   @Summary
@@ -97,10 +158,3 @@ static void turn_on(void);
     None
 */
 void LED_Initialize(led_adapter *led);
-
-static void turn_red(void);
-static void turn_green(void);
-static void turn_blue(void);
-static void set_brightness(int pwm);
-static void turn_selectors(bool selector1, bool selector2);
-static void next_color(void);

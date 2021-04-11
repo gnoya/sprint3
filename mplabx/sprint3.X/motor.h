@@ -32,9 +32,62 @@ typedef struct motor_adapter
   void (*set_direction)(bool direction);
 } motor_adapter;
 
+/**
+  @Summary
+    This functions changes the motor_state to the next one in CCW order
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
 static void ccw();
+
+/**
+  @Summary
+    This functions changes the motor_state to the next one in CW order
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
 static void cw();
+
+/**
+  @Summary
+    This functions changes the direction of the motor
+
+  @Param
+    bool direction: true for CW, false for CCW
+
+  @Returns
+    None
+*/
 static void set_direction(bool direction);
+
+/**
+  @Summary
+    This functions make the motor do a step in a previously set direction
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
 static void step();
 
+/**
+  @Summary
+    This functions initialize the motor adapter
+
+  @Param
+    motor_adapter *motor: the motor object
+
+  @Returns
+    None
+*/
 void MOTOR_Initialize(motor_adapter *motor);

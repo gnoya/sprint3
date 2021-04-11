@@ -25,7 +25,7 @@ static void write_state(int state)
 {
   uint8_t sendData[3] = {0x00, 0x00, 0x00};
   sendData[2] = (uint8_t)state;
-  printf("Writing state\r\n");
+  printf("Writing state to the EEPROM\r\n");
   i2c_writeNBytes(EEPROM_DEVICE_ADDRESS, sendData, sizeof(sendData));
   __delay_ms(20);
 }

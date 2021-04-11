@@ -25,4 +25,16 @@
  * Comments:
  * Revision history: 
  */
+
+/**
+  @Summary
+    This functions will be the callback to read the temperature sensor.
+    If the temperature is higher than a threshold, it will put the MCU to sleep state.
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
 void temp_ISR(void);

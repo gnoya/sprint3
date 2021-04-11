@@ -10,13 +10,14 @@
 #include <stdbool.h>
 #include "led.h"
 
-#define RED 0
-#define GREEN 1
-#define BLUE 2
+#define RED 0   // selectors: 1 0
+#define GREEN 1 // selectors: 0 1
+#define BLUE 2  // selectors: 1 1
 
 static int current_color = RED;
 static int current_brightness = 0;
 
+// This will modify the values of the Demux
 static void turn_selectors(bool selector1, bool selector2)
 {
   if (selector1)
@@ -98,7 +99,6 @@ static void next_color(void)
   turn_on();
 }
 
-// ----------------------- Public functions ----------------------- //
 void LED_Initialize(led_adapter *led)
 {
   led->turn_on = turn_on;

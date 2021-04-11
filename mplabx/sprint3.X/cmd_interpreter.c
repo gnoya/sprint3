@@ -9,6 +9,10 @@
 #include "led.h"
 #include "motor.h"
 
+/* These are a set of instructions that our system can handle
+  using DMX. However, since we couldn't read the serial, we
+  made a mock function to call every single one of these commands.
+*/
 #define LED_BLUE 0
 #define LED_GREEN 1
 #define LED_RED 2
@@ -23,17 +27,15 @@
 #define MOTOR_DIRECTION_CCW 8
 #define MOTOR_DIRECTION_CW 9
 
-#define MOTOR_SPEED_SET 10
-
 extern led_adapter led;
 extern motor_adapter motor;
 
-static int temp_state = 0;
-static int temp_counter = 0;
+static int mock_state = 0;
+static int mock_counter = 0;
 
 static void led_commands()
 {
-  switch (temp_state)
+  switch (mock_state)
   {
   case LED_BLUE:
     printf("LED command: set blue\r\n");
@@ -81,9 +83,8 @@ static void led_commands()
 
 static void motor_commands()
 {
-  switch (temp_state)
+  switch (mock_state)
   {
-
   case MOTOR_DIRECTION_CCW:
     printf("MOTOR command: CCW direction\r\n");
     motor.set_direction(false);
@@ -93,11 +94,6 @@ static void motor_commands()
     printf("MOTOR command: CW direction\r\n");
     motor.set_direction(true);
     break;
-
-  case MOTOR_SPEED_SET:
-    // Aqui hay que modificar el tiempo de interrupción del TMR2.
-    // Cuidado porque este mismo timer se utiliza para los PWM
-    // Y no se si afecte su funcionamiento.
     break;
   default:
     break;
@@ -107,11 +103,11 @@ static void motor_commands()
 void command()
 {
   // Added this counter so the states last longer
-  if (temp_counter++ >= 7)
+  if (mock_counter++ >= 7)
   {
-    temp_counter = 0;
+    mock_counter = 0;
     led_commands();
     motor_commands();
-    temp_state = (temp_state + 1) % 11;
+    mock_state = (mock_state + 1) % 10;
   }
 }

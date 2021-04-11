@@ -10,6 +10,11 @@
 #include <stdbool.h>
 #include "motor.h"
 
+/*
+  These are the combinations needed to make the motor do a step
+  If you go from 0 to 3, it is Clockwise (CW) rotation
+  If you go from 3 to 0, it is Counter Clockwise (CCW) rotation
+*/
 #define STEP_0 0 // 0 0 1 1
 #define STEP_1 1 // 0 1 1 0
 #define STEP_2 2 // 1 1 0 0
@@ -18,6 +23,7 @@
 static int motor_state = STEP_0;
 static bool motor_direction = true;
 
+// 0 0 1 1
 static void motor_state_0()
 {
   MOTOR_A_SetLow();
@@ -26,6 +32,7 @@ static void motor_state_0()
   MOTOR_D_SetHigh();
 }
 
+// 0 1 1 0
 static void motor_state_1()
 {
   MOTOR_A_SetLow();
@@ -34,6 +41,7 @@ static void motor_state_1()
   MOTOR_D_SetLow();
 }
 
+// 1 1 0 0
 static void motor_state_2()
 {
   MOTOR_A_SetHigh();
@@ -42,6 +50,7 @@ static void motor_state_2()
   MOTOR_D_SetLow();
 }
 
+// 1 0 0 1
 static void motor_state_3()
 {
   MOTOR_A_SetHigh();
@@ -68,6 +77,7 @@ static void set_direction(bool direction)
 
 static void step()
 {
+  // Check direction to update the state
   if (motor_direction)
   {
     cw();
@@ -77,6 +87,9 @@ static void step()
     ccw();
   }
 
+  /* This could've been optimized using an array but
+    we were very short on memory.
+  */
   switch (motor_state)
   {
   case STEP_0:

@@ -26,14 +26,116 @@
  * Revision history: 
  */
 
-static void led_0_feedback(void);
-static void led_1_feedback(void);
-static void led_2_feedback(void);
-static void led_3_feedback(void);
+/**
+  @Summary
+    This functions will set the demux selectors to do feedback of the
+    HIGH_LIGHT_STATE
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
+static void high_light_feedback(void);
+
+/**
+  @Summary
+    This functions will set the demux selectors to do feedback of the
+    MUSIC_STATE
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
+static void music_feedback(void);
+
+/**
+  @Summary
+    This functions will set the demux selectors to do feedback of the
+    DMX_STATE
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
+static void dmx_feedback(void);
+
+/**
+  @Summary
+    This functions will set the demux selectors to do feedback of the
+    SLEEP_STATE
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
+static void sleep_feedback(void);
+
+/**
+  @Summary
+    This functions turns the demux selectors given two booleans
+
+  @Param
+    bool selector1: changes the value of the selector 1
+    bool selector2: changes the value of the selector 2
+
+  @Returns
+    None
+*/
 static void turn_selectors(bool selector1, bool selector2);
 
+/**
+  @Summary
+    This functions changes the feedback LED values given a state
+
+  @Param
+    int state: state of the system
+
+  @Returns
+    None
+*/
 void feedback(int state);
+
+/**
+  @Summary
+    This functions handles the deboucing effect
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
 void debouncing_ISR(void);
+
+/**
+  @Summary
+    This functions handles the button press interrupt and changes
+    the state of the system to the next one
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
 void button_ISR(void);
 
+/**
+  @Summary
+    This functions initializes the feedback module
+
+  @Param
+    None
+
+  @Returns
+    None
+*/
 void FEEDBACK_Initialize(void);

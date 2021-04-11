@@ -25,3 +25,14 @@
  * Comments:
  * Revision history: 
  */
+
+typedef struct filter
+{
+  void (*push_and_shift)(unsigned int value);
+  unsigned int (*average)(void);
+} filter;
+
+void push_and_shift(unsigned int value);
+unsigned int average();
+
+void FILTER_Initialize(filter *audio_filter);

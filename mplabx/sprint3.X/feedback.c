@@ -45,7 +45,6 @@ static void turn_selectors(bool selector1, bool selector2)
 
 static void led_0_feedback(void)
 {
-
   turn_selectors(1, 0);
 }
 
@@ -97,7 +96,7 @@ void FEEDBACK_Initialize()
 {
   /* Is this a bad practice ?
    * Using the turn_on function to also
-   * turn down the others
+   * turn down the other LEDs
   */
   leds[0].turn_on = led_0_feedback;
   leds[1].turn_on = led_1_feedback;

@@ -49,6 +49,7 @@
 #include "temp_sensor.h"
 #include "motor.h"
 #include "cmd_interpreter.h"
+#include "audio.h"
 
 #define HIGH_LIGHT_STATE 0
 #define MUSIC_STATE 1
@@ -58,6 +59,7 @@
 led_adapter led;
 eeprom_adapter eeprom;
 motor_adapter motor;
+audio_adapter audio;
 
 int state = HIGH_LIGHT_STATE;
 bool main_interrupt = false;
@@ -70,8 +72,6 @@ void main_ISR()
   main_interrupt = true;
 }
 
-
-
 void main(void)
 {
   // ---------------- Initializing led and menu ---------------- //
@@ -80,6 +80,7 @@ void main(void)
   EEPROM_Initialize(&eeprom);
   FEEDBACK_Initialize();
   MOTOR_Initialize(&motor);
+  AUDIO_Initialize(&audio);
 
   // ------------------ Enabling Interrupts --------------------- //
   INTERRUPT_GlobalInterruptEnable();
@@ -110,7 +111,7 @@ void main(void)
 
       if (state_changed)
       {
-        // Feedback the new stage
+        // Feedback the new state
         feedback(state);
 
         // Save to EEPROM except for SLEEP STATE
@@ -129,7 +130,8 @@ void main(void)
         break;
 
       case MUSIC_STATE:
-        led.turn_green();
+        audio.measure();
+        // led.turn_green();
         break;
 
       case DMX_STATE:
@@ -154,9 +156,9 @@ void main(void)
     }
     else
     {
-        if (state == MUSIC_STATE ){
-            led.music();
-        }
+      // if (state == MUSIC_STATE ){
+      //     led.music();
+      // }
     }
   }
 }

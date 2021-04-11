@@ -107,7 +107,7 @@ static void motor_commands()
 void command()
 {
   // Added this counter so the states last longer
-  if (temp_counter++ >= 3)
+  if (temp_counter++ >= 7)
   {
     temp_counter = 0;
     led_commands();

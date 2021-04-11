@@ -64,7 +64,7 @@
 /**
   Section: Macro Declarations
 */
-#define TMR2_INTERRUPT_TICKER_FACTOR    32
+#define TMR2_INTERRUPT_TICKER_FACTOR    20
 
 /**
   Section: TMR2 APIs

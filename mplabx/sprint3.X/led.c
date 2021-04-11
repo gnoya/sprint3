@@ -17,11 +17,6 @@
 static int current_color = RED;
 static int current_brightness = 0;
 
-static int music_counter = 0;
-static unsigned int music_sample_limit = 20;
-static unsigned int music_color_limit = 2500;
-static unsigned int measures = 0; 
-
 static void turn_selectors(bool selector1, bool selector2)
 {
   if (selector1)
@@ -61,21 +56,6 @@ static void turn_green(void)
   turn_selectors(0, 1);
 }
 
-static void music(void)
-{
-    measures += (unsigned int)ADC_GetConversion(0x02);
-    music_counter++;
-    
-    if (music_counter > music_sample_limit){
-        music_counter = 0;
-        printf("%u \r\n",(measures/music_sample_limit));
-        if ((measures/music_sample_limit) > music_color_limit){
-            printf("cambio\r\n");
-        }
-       
-    }
-    
-}
 static void turn_blue(void)
 {
   current_color = BLUE;
@@ -97,6 +77,8 @@ static void turn_on(void)
     turn_blue();
     break;
   default:
+    current_color = RED;
+    turn_red();
     break;
   }
 
@@ -110,6 +92,12 @@ static void turn_off(void)
   set_brightness(0);
 }
 
+static void next_color(void)
+{
+  current_color = (current_color + 1) % 3;
+  turn_on();
+}
+
 // ----------------------- Public functions ----------------------- //
 void LED_Initialize(led_adapter *led)
 {
@@ -119,5 +107,5 @@ void LED_Initialize(led_adapter *led)
   led->turn_green = turn_green;
   led->turn_blue = turn_blue;
   led->set_brightness = set_brightness;
-  led->music = music;
+  led->next_color = next_color;
 }

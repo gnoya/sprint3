@@ -34,6 +34,7 @@ static void act(void)
   // Calculate the average of the values in the filter
   unsigned int filter_average = audio_filter.average();
 
+  printf("Average: %d\r\n", filter_average);
   // If the average is greater than a threshold, change the color of the LED
   if (filter_average >= AVERAGE_THRESHOLD)
   {

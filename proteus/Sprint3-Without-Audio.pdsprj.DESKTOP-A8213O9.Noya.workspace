@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <WORKSPACE>
  <FRAME activewindow="0">
-  <PLACEMENT>2c0000000200000003000000ffffffffffffffffffffffffffffffff00000000000000002b06000077020000</PLACEMENT>
+  <PLACEMENT>2c00000002000000030000000083ffff0083ffffffffffffffffffff00000000000000002b06000077020000</PLACEMENT>
   <WINDOW type="default" module="ISIS"/>
  </FRAME>
  <MODULE name="VSMDEBUG">
@@ -48,7 +48,7 @@
      <ITEM name="VSplitter1Pos">238</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="450" x="360" flags="00000022" y="216" h="237" pid="0" iid="3">
+   <POPUP w="308" x="1483" flags="00000022" y="119" h="237" pid="0" iid="3">
     <PROPERTIES>
      <ITEM name="AutoEcho">0</ITEM>
      <ITEM name="HexMode">0</ITEM>
@@ -64,7 +64,7 @@
      <ITEM name="TopLineAddress">00000000</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="52" x="138" flags="00000008" y="229" h="15" pid="3" iid="8">
+   <POPUP w="380" x="138" flags="00000008" y="229" h="204" pid="3" iid="8">
     <PROPERTIES/>
    </POPUP>
    <POPUP w="8" x="158" flags="0000000a" y="249" h="32" pid="4" iid="8">
@@ -87,7 +87,7 @@
      <ITEM name="TopLineAddress">00000000</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="14" x="198" flags="00000008" y="289" h="18" pid="7" iid="8">
+   <POPUP w="114" x="198" flags="00000008" y="289" h="237" pid="7" iid="8">
     <PROPERTIES/>
    </POPUP>
    <POPUP w="8" x="218" flags="00000002" y="309" h="8" pid="8" iid="8">
